@@ -1,0 +1,52 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('homepage');
+});
+
+Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
+  Route::get('/','UserController@show_dashboard')->name('user_dashboard');
+
+  Route::prefix('action')->group(function(){
+    Route::get('/get_article_subjects','ArticleController@get_all_subjects');
+    Route::get('/get_tags_list','ArticleController@get_tags_with_query');
+    Route::post('/add_image','ArticleController@add_image');
+  });
+
+  Route::prefix('article')->group(function(){
+    Route::get('/new','UserController@show_creating_article')->name('show_creating_article_page');
+    Route::post('/create','ArticleController@create')->name('create_article');
+    Route::get('/list','UserController@show_article_list')->name('show_article_list_page');
+    Route::get('/rules','UserController@show_rule')->name('show_writing_article_rule_page');
+    Route::get('/review/{article_id}','ArticleController@get_article');
+    Route::delete('/delete','ArticleController@delete');
+  });
+});
+
+
+Route::get('bongden_login','BongdenLoginController@index')->name('bongden_login_show_form')->middleware('isloginbefore');
+Route::post('bongden_login','BongdenLoginController@login')->name('bongden_login');
+Route::post('bongden_register','BongdenRegisterController@register')->name('bongden_register');
+Route::get('bongden_logout','AuthSession@destroy')->name('bongden_logout');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+/*For debug only. Remove these routes when release*/
+Route::get('/_debugbar/assets/stylesheets', [
+'as' => 'debugbar-css',
+'uses' => '\Barryvdh\Debugbar\Controllers\AssetController@css']);
+
+Route::get('/_debugbar/assets/javascript', [
+'as' => 'debugbar-js',
+'uses' => '\Barryvdh\Debugbar\Controllers\AssetController@js']);

@@ -1,0 +1,702 @@
+@font-face{
+	font-family: Comfortaa-Regular;
+	src: url('../../fonts/Comfortaa-Regular.ttf');
+}
+
+@font-face{
+	font-family: Comfortaa-Bold;
+	src: url('../../fonts/Comfortaa-Bold.ttf');
+}
+
+
+body,html{
+	border: 0px;
+	margin: 0px;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+button,input[type='button'],input[type='submit']{
+  cursor: pointer;
+  border:0;
+}
+
+button:focus,input:focus,textarea:focus{
+	outline: 0 !important;
+}
+
+button{
+	background: none;
+	border: none;
+}
+
+/*DARK MODE SETTINGS FOR MAIN LAYOUT*/
+body.light{
+	background-color: white;
+	transition: background-color .8s;
+}
+
+body.night{
+	background-color: #141414;
+	transition: background-color .8s;
+}
+
+body.light .nav-item > a{
+	color: #123D6A;
+}
+
+body.light #dark-switch label{
+	color: #123D6A;
+}
+
+body.light .nav-right-item a, body.light .nav-right-item i{
+	color: #123D6A;
+}
+
+body.night .nav-item > a{
+	color: #ecf0f1;
+}
+
+body.night #dark-switch label{
+	color: #ecf0f1;
+}
+
+body.night .nav-right-item a, body.night .nav-right-item i{
+	color: #ecf0f1;
+}
+
+.row.no-gutters{
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class^=" col-"]{
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.page-wrapper{
+	overflow-x: hidden;
+	height: auto;
+}
+
+.bd-name{
+	position: absolute;
+	top: 30px;
+	left: 25px;
+	font-family: Taurus-Mono-Outline-Bold;
+	font-size: 1.5em;
+}
+
+.hamburger{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 1000;
+  background-color: transparent;
+  border: 0
+}
+
+.header-mobile__bar{
+	background-color: #ecf0f1;
+	height: 90px;
+}
+
+.navbar-mobile{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: -1;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .3s;
+}
+
+.navbar-mobile::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: -15px;
+  background-color: #FEDC2A;
+  transform-origin: 0 0;
+  transform: skew(-14deg) translateX(-120%);
+  transition: all .2s .1s;
+}
+
+.navbar-mobile.is-open{
+  opacity: 1;
+  z-index: 999;
+  visibility: visible;
+}
+
+.navbar-mobile.is-open::before{
+  transform: skew(-14deg) translateX(0);
+}
+
+.navbar-mobile .is-open{
+  opacity: 1;
+  z-index: 999;
+  visibility: visible;
+}
+
+.navbar-mobile ul{
+  display: inline-flex;
+  flex-direction: column;
+  height: 93%;
+  align-items: flex-end;
+  justify-content: center;
+  transform: translateX(-18%) skew(-16deg);
+}
+
+.navbar-mobile li{
+  display: block;
+  margin: .5rem 0;
+  text-align: right;
+  transform: skew(16deg);
+}
+
+.navbar-mobile a{
+  opacity: 0;
+  transform: translateY(-10px);
+  font-family: Roboto-Medium;
+}
+
+.navbar-mobile li:nth-child(1) a{
+  transition: all 275ms 175ms;
+}
+
+.navbar-mobile li:nth-child(2) a{
+  transition: all 275ms 225ms;
+}
+
+.navbar-mobile li:nth-child(3) a{
+  transition: all 275ms 275ms;
+}
+
+.navbar-mobile li:nth-child(4) a{
+  transition: all 275ms 325ms;
+}
+
+.navbar-mobile li:nth-child(5) a{
+  transition: all 275ms 375ms;
+}
+
+.navbar-mobile li:nth-child(6) a{
+  transition: all 275ms 425ms;
+}
+
+.navbar-mobile.is-open a{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navbar-mobile ul,.navbar-mobile li{
+  list-style: none;
+  padding: 0;
+}
+
+.navbar-mobile a{
+  display: block;
+  padding: 12px 0;
+  color: #5A3B5D;
+  font-size: 1.4em;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-desktop a{
+  font-family: Comfortaa-Bold;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.navbar-desktop{
+  height: 100px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 998;
+}
+
+.navbar-desktop ul{
+  margin-top: 20px;
+}
+
+.navbar-desktop ul li{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navbar-desktop ul li:first-child{
+	margin-left: 50px;
+}
+
+.navbar-desktop ul li:last-child{
+	margin-right: 50px;
+}
+
+.navbar-desktop ul:first-child li:hover{
+  border-bottom: 2px solid #AB3B61;
+}
+
+.navbar-desktop ul:first-child li:hover a{
+  color: #AB3B61;
+}
+
+.nav-right-item{
+  color: #123D6A;
+  font-size: 1.3em;
+}
+
+#login-redirect{
+	font-size: 1.4em;
+}
+
+#dark-switch{
+	font-family: Comfortaa-Regular;
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+#search-field{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ecf0f1;
+  z-index: -1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+#search-field #search-field__content{
+  border: 0;
+  height: 100px;
+  width: 100%;
+  color: gray;
+  font-size: 3em;
+  background-color: transparent;
+  font-family: Roboto-Medium;
+  outline: 0;
+}
+
+#search-field.is-open{
+  z-index: 999;
+  visibility: visible;
+  opacity: 1;
+}
+
+#search-field #search-field-close-btn{
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e74c3c;
+  color: #ecf0f1;
+  font-size: 1.3em;
+  transition: all .3s;
+}
+
+#search-field #search-field-close-btn:before{
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 90%;
+  height: 90%;
+  transform-origin: center;
+  transform: scale(0,0);
+  border-radius: 50%;
+  background-color: #ecf0f1;
+  transition: all .2s;
+}
+
+#search-field #search-field-close-btn:hover:before{
+  transform: scale(1,1);
+}
+
+#search-field #search-field-close-btn:hover i{
+  color:  #e74c3c;
+}
+
+#search-field #search-field-close-btn i{
+  position: relative;
+  z-index: 999;
+}
+
+#user-avatar{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
+	cursor: pointer;
+}
+
+.popup-avatar{
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.footer{
+	background-color: #22313F;
+	color: white;
+}
+
+.footer .footer-content .f-title{
+	font-size: 20px;
+	font-family: Comfortaa-Bold;
+	color: white;
+}
+
+.footer .footer-content .sub-title{
+	font-size: 15px;
+	color: #8492a6;
+	font-family: Comfortaa-Regular;
+}
+
+.footer .contact-item{
+	width: 50px;
+	height: 50px;
+	border: solid gray 1px;
+	border-radius: 50%;
+	font-size: 20px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer .info-container{
+	height: 400px;
+}
+
+#contact-fb{
+	color: white;
+	background-color: transparent;
+	transition: background-color .3s ease-in-out,color .3s;
+}
+
+#contact-fb:hover{
+	color: #4064AC;
+	background-color: white;
+	border:0;
+}
+
+/*GLITCH EFFECT*/
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100");
+html, body, h1 {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#app {
+  background: #0a0a0a;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+#wrapper {
+  text-align: center;
+}
+
+.sub {
+  color: #64dcdc;
+  letter-spacing: 1em;
+}
+
+/* Our mixin positions a copy of our text
+directly on our existing text, while
+also setting content to the appropriate
+text set in the data-text attribute. */
+.glitch {
+  position: relative;
+  color: white;
+  font-size: 4em;
+  letter-spacing: .5em;
+  /* Animation provies a slight random skew. Check bottom of doc
+  for more information on how to random skew. */
+  animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  /* Creates an initial clip for our glitch. This works in
+  a typical top,right,bottom,left fashion and creates a mask
+  to only show a certain part of the glitch at a time. */
+  clip: rect(44px, 450px, 56px, 0);
+  /* Runs our glitch-anim defined below to run in a 5s loop, infinitely,
+  with an alternating animation to keep things fresh. */
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  left: -2px;
+  text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+/* Creates an animation with 20 steaps. For each step, it calculates
+a percentage for the specific step. It then generates a random clip
+box to be used for the random glitch effect. Also adds a very subtle
+skew to change the 'thickness' of the glitch.*/
+@keyframes glitch-anim {
+  0% {
+    clip: rect(63px, 9999px, 34px, 0);
+    transform: skew(0.18deg);
+  }
+  5% {
+    clip: rect(40px, 9999px, 46px, 0);
+    transform: skew(0.98deg);
+  }
+  10% {
+    clip: rect(17px, 9999px, 7px, 0);
+    transform: skew(0.45deg);
+  }
+  15% {
+    clip: rect(7px, 9999px, 73px, 0);
+    transform: skew(0.68deg);
+  }
+  20% {
+    clip: rect(9px, 9999px, 46px, 0);
+    transform: skew(0.92deg);
+  }
+  25% {
+    clip: rect(96px, 9999px, 41px, 0);
+    transform: skew(0.1deg);
+  }
+  30% {
+    clip: rect(91px, 9999px, 50px, 0);
+    transform: skew(0.03deg);
+  }
+  35% {
+    clip: rect(84px, 9999px, 15px, 0);
+    transform: skew(0.8deg);
+  }
+  40% {
+    clip: rect(88px, 9999px, 28px, 0);
+    transform: skew(0.71deg);
+  }
+  45% {
+    clip: rect(52px, 9999px, 7px, 0);
+    transform: skew(0.25deg);
+  }
+  50% {
+    clip: rect(21px, 9999px, 100px, 0);
+    transform: skew(0.55deg);
+  }
+  55% {
+    clip: rect(52px, 9999px, 67px, 0);
+    transform: skew(0.07deg);
+  }
+  60% {
+    clip: rect(34px, 9999px, 88px, 0);
+    transform: skew(0.74deg);
+  }
+  65% {
+    clip: rect(60px, 9999px, 24px, 0);
+    transform: skew(0.24deg);
+  }
+  70% {
+    clip: rect(67px, 9999px, 48px, 0);
+    transform: skew(0.34deg);
+  }
+  75% {
+    clip: rect(48px, 9999px, 90px, 0);
+    transform: skew(0.27deg);
+  }
+  80% {
+    clip: rect(85px, 9999px, 3px, 0);
+    transform: skew(0.28deg);
+  }
+  85% {
+    clip: rect(9px, 9999px, 65px, 0);
+    transform: skew(0.24deg);
+  }
+  90% {
+    clip: rect(39px, 9999px, 65px, 0);
+    transform: skew(0.19deg);
+  }
+  95% {
+    clip: rect(33px, 9999px, 49px, 0);
+    transform: skew(0.24deg);
+  }
+  100% {
+    clip: rect(76px, 9999px, 75px, 0);
+    transform: skew(0.96deg);
+  }
+}
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(70px, 9999px, 17px, 0);
+    transform: skew(0.19deg);
+  }
+  5% {
+    clip: rect(98px, 9999px, 55px, 0);
+    transform: skew(0.03deg);
+  }
+  10% {
+    clip: rect(94px, 9999px, 80px, 0);
+    transform: skew(0.19deg);
+  }
+  15% {
+    clip: rect(57px, 9999px, 44px, 0);
+    transform: skew(0.95deg);
+  }
+  20% {
+    clip: rect(39px, 9999px, 43px, 0);
+    transform: skew(0.24deg);
+  }
+  25% {
+    clip: rect(6px, 9999px, 13px, 0);
+    transform: skew(0.78deg);
+  }
+  30% {
+    clip: rect(22px, 9999px, 39px, 0);
+    transform: skew(0.73deg);
+  }
+  35% {
+    clip: rect(81px, 9999px, 24px, 0);
+    transform: skew(0.37deg);
+  }
+  40% {
+    clip: rect(19px, 9999px, 45px, 0);
+    transform: skew(0.99deg);
+  }
+  45% {
+    clip: rect(49px, 9999px, 78px, 0);
+    transform: skew(0.48deg);
+  }
+  50% {
+    clip: rect(35px, 9999px, 63px, 0);
+    transform: skew(0.52deg);
+  }
+  55% {
+    clip: rect(70px, 9999px, 53px, 0);
+    transform: skew(0.14deg);
+  }
+  60% {
+    clip: rect(66px, 9999px, 30px, 0);
+    transform: skew(0.12deg);
+  }
+  65% {
+    clip: rect(28px, 9999px, 12px, 0);
+    transform: skew(0.69deg);
+  }
+  70% {
+    clip: rect(8px, 9999px, 47px, 0);
+    transform: skew(0.51deg);
+  }
+  75% {
+    clip: rect(1px, 9999px, 57px, 0);
+    transform: skew(0.47deg);
+  }
+  80% {
+    clip: rect(48px, 9999px, 15px, 0);
+    transform: skew(0.97deg);
+  }
+  85% {
+    clip: rect(85px, 9999px, 85px, 0);
+    transform: skew(0.86deg);
+  }
+  90% {
+    clip: rect(77px, 9999px, 44px, 0);
+    transform: skew(0.05deg);
+  }
+  95% {
+    clip: rect(89px, 9999px, 14px, 0);
+    transform: skew(0.36deg);
+  }
+  100% {
+    clip: rect(96px, 9999px, 49px, 0);
+    transform: skew(0.17deg);
+  }
+}
+@keyframes glitch-skew {
+  0% {
+    transform: skew(4deg);
+  }
+  10% {
+    transform: skew(1deg);
+  }
+  20% {
+    transform: skew(3deg);
+  }
+  30% {
+    transform: skew(-3deg);
+  }
+  40% {
+    transform: skew(-4deg);
+  }
+  50% {
+    transform: skew(2deg);
+  }
+  60% {
+    transform: skew(4deg);
+  }
+  70% {
+    transform: skew(-2deg);
+  }
+  80% {
+    transform: skew(-3deg);
+  }
+  90% {
+    transform: skew(5deg);
+  }
+  100% {
+    transform: skew(3deg);
+  }
+}
+
+
+.shadow-hover{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	-webkit-transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.shadow-hover:hover{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+@media only screen and (max-width: 768px){
+	.footer .info-container:first-child{
+		height: 400px;
+	}
+
+	.footer .info-container .title:first-child{
+		text-align: center;
+	}
+}

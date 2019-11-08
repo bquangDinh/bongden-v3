@@ -1,0 +1,84 @@
+@font-face{
+	font-family: Comfortaa-Regular;
+	src: url('../../fonts/Comfortaa-Regular.ttf');
+}
+
+@font-face{
+	font-family: Comfortaa-Bold;
+	src: url('../../fonts/Comfortaa-Bold.ttf');
+}
+
+.article-header{
+  border: 1px dashed #333333;
+  border-radius: 10px;
+}
+
+.article-cover-container{
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.article-cover-container .article-cover{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.article-cover-container .article-cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.article-cover-container #add-btn{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  z-index: 2;
+  background-color: transparent;
+  border: 2px solid #333333;
+  font-size: 1.3em;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s;
+}
+
+.article-cover-container:hover #add-btn{
+  visibility: visible;
+  opacity: 1;
+}
+
+.article-title{
+  width: 60%;
+  border: 2px dashed #333333;
+  border-radius: 4px;
+}
+
+.form-text{
+  resize: none;
+  overflow: hidden;
+  background-color: transparent;
+  border: 0;
+  width: 100%;
+  height: auto;
+  font-family: Comfortaa-Bold;
+  font-size: 1.3em;
+  color: #333333;
+}
+
+.form-text:focus{
+  outline: 0;
+}
+
+.error-form-control-message{
+	color: #e74c3c;
+	font-size: 14px;
+}
