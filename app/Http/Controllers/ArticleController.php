@@ -40,7 +40,7 @@ class ArticleController extends Controller
     }
 
     public function create(ArticleRequest $request){
-      $err = ArticleService::create(Auth::user()->id,$request);
+      $err = ArticleService::create_article_with_request(Auth::user()->id,$request);
 
       if($err == -1){
         return view('userpage.user_blank')->with('error','Oops ! Có gì đó đã xảy ra và chúng mình không thể tạo bài viết cho bạn. Hãy báo cáo nếu bạn có vấn đề cho đội ngũ Bóng Đèn nhé.');

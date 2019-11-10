@@ -22,7 +22,8 @@ class UserAchievementInfo extends Model
       return $this->belongsTo('App\User','user_id');
     }
 
+    /*Functions*/
     public function expToLevelUp($currentLevel){
-        return UserAchievementService::calculateExpToNextLevel($currentLevel);
+        return UserAchievementService::calculate_exp_to_next_level($currentLevel);
     }
 }

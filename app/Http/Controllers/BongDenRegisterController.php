@@ -19,7 +19,7 @@ class BongDenRegisterController extends Controller
   }
 
   public function register(RegisterRequest $request){
-    $user = UserService::create($request);
+    $user = UserService::create_with_request($request);
 
     Auth::login($user);
     return redirect('/user');

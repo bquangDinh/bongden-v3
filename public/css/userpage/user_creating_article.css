@@ -48,12 +48,16 @@
   font-size: 1.3em;
   opacity: 0;
   visibility: hidden;
-  transition: opacity .4s;
+  transition: all .4s;
 }
 
 .article-cover-container:hover #add-btn{
   visibility: visible;
   opacity: 1;
+}
+
+.article-cover-container:hover #add-btn:focus{
+	transform: scale(0.8,0.8);
 }
 
 .article-title{
