@@ -49,6 +49,10 @@ class User extends Authenticatable
       return $this->hasMany('App\UserFollower');
     }
 
+    public function articles(){
+      return $this->hasMany('App\Article');
+    }
+
     public function withRoles(){
       return $this->hasMany('App\UserToRole');
     }

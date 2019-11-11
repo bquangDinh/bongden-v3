@@ -17,20 +17,29 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
   Route::get('/','UserController@show_dashboard')->name('user_dashboard');
-
+  Route::get('/user_staticstic','UserController@show_user_staticstic')->name('show_user_staticstic_page');
+  
   Route::prefix('action')->group(function(){
     Route::get('/get_article_subjects','ArticleController@get_all_subjects');
     Route::get('/get_tags_list','ArticleController@get_tags_with_query');
     Route::post('/add_image','ArticleController@add_image');
+    Route::get('/get_discussion_categories','DiscussionController@get_discussion_categories');
   });
 
   Route::prefix('article')->group(function(){
     Route::get('/new','UserController@show_creating_article')->name('show_creating_article_page');
     Route::post('/create','ArticleController@create')->name('create_article');
+    Route::post('/update','ArticleController@update')->name('update_article');
+    Route::get('/view/{article_id}','UserController@show_editing_article')->name('show_editing_article_page');
     Route::get('/list','UserController@show_article_list')->name('show_article_list_page');
     Route::get('/rules','UserController@show_rule')->name('show_writing_article_rule_page');
-    Route::get('/review/{article_id}','ArticleController@get_article');
+    Route::get('/review/{article_id}','ArticleController@get_article_ajax');
     Route::delete('/delete','ArticleController@delete');
+  });
+
+  Route::prefix('discussion')->group(function(){
+    Route::get('/new','UserController@show_creating_discussion')->name('show_creating_discussion_page');
+    Route::post('/create','DiscussionController@create')->name('creating_discussion');
   });
 });
 

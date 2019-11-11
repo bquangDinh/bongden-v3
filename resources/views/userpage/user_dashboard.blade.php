@@ -13,7 +13,7 @@ Dashboard
 
 @section('content')
 <div class="row">
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-6 col-md-12 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -32,26 +32,7 @@ Dashboard
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Bài viết trong tuần
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          0
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="far fa-newspaper fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-6 col-md-12 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -60,30 +41,11 @@ Dashboard
                             Số thảo luận
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          0
+                          {{ Auth::user()->achieveDetail->discussionCount }} thảo luận
                         </div>
                     </div>
                     <div class="col-auto">
                         <i class="far fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Lượt follow
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          0
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-user-friends fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -157,7 +119,7 @@ Dashboard
         </div>
     </div>
     <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card border-left-success shadow h-100 py-2 tooltip-o" data-tooltip-message="Bạn cần {{ $exp_to_next_level }} điểm để lên cấp tiếp theo">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
@@ -165,7 +127,7 @@ Dashboard
                             Tổng kinh nghiệm
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          {{ Auth::user()->achieveDetail->exp }} / {{ Auth::user()->achieveDetail->expToLevelUp(Auth::user()->achieveDetail->level) }}
+                          {{ Auth::user()->achieveDetail->exp }} / {{ $exp_to_next_level }}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -175,24 +137,7 @@ Dashboard
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Nhiệm vụ đã hoàn thành
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">23/25</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-tasks fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-6 col-md-12 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -201,7 +146,7 @@ Dashboard
                             Huy chương tiếp theo
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          <span class="badge badge-danger">Ngôi sao mới nổi</span>
+                          <span class="badge badge-danger">{{ $next_medal->name }}</span>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -212,9 +157,54 @@ Dashboard
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4 shadow">
+            <a href="#collapseCard" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCard">
+                <h6 class="m-0 font-weight-bold text-primary">
+                  Huy chương đã đạt được <i class="fas fa-medal" style="color: #f1c40f"></i> <i class="fas fa-medal" style="color: #f1c40f"></i> <i class="fas fa-medal" style="color: #f1c40f"></i>
+                </h6>
+            </a>
+            <div class="collapse show" id="collapseCard" style="">
+                <div class="card-body">
+                    @foreach(Auth::user()->achievements as $achieved)
+                    <div class="card border-left-info shadow h-100 py-2 mb-4">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        {{ $achieved->achievement->name }}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                      <span class="badge badge-danger">{{ $achieved->achievement->description }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-star-of-david fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('js')
 <script src="{{ URL::asset('js/vendor/chart.js/Chart.min.js') }}" charset="utf-8"></script>
+<script src="{{ URL::asset('js/vendor/randomColor.min.js') }}" charset="utf-8"></script>
+<!--Receive data from server-->
+<script type="text/javascript">
+  var article_count_statistics = {!! json_encode($article_count_statistics) !!};
+  var article_count_by_subject_statistics = {!! json_encode($article_count_by_subject_statistics) !!};
+  var article_subject_colors = randomColor({
+    count: Object.keys(article_count_by_subject_statistics).length,
+    format:'rgba',
+    luminosity:'dark'
+  });
+</script>
 <script src="{{ URL::asset('js/userpage/user_dashboard.js') }}" charset="utf-8"></script>
 @endsection

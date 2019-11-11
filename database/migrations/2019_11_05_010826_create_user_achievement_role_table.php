@@ -17,7 +17,7 @@ class CreateUserAchievementRoleTable extends Migration
             $table->increments('id');
             $table->integer('level');
             $table->integer('articleCount');
-            $table->integer('followerCount');
+            $table->integer('discussionCount');
             $table->timestamps();
         });
     }

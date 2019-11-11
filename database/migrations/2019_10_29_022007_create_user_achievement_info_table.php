@@ -20,7 +20,7 @@ class CreateUserAchievementInfoTable extends Migration
           $table->integer('exp')->default(0);
           $table->integer('level')->default(1);
           $table->integer('articleCount')->default(0);
-          $table->integer('followerCount')->default(0);
+          $table->integer('discussionCount')->default(0);
           $table->timestamps();
         });
     }

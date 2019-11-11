@@ -62,7 +62,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="far fa-newspaper"></i>
           <span>Bài viết</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -80,14 +80,14 @@
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
+          <i class="far fa-comment-alt"></i>
           <span>Thảo luận</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Thảo luận:</h6>
             @if(Auth::user()->hasPermission('write_discussion'))
-            <a class="collapse-item" href="utilities-color.html">Tạo thảo luận</a>
+            <a class="collapse-item" href="{{ route('show_creating_discussion_page') }}">Tạo thảo luận</a>
             @endif
             <a class="collapse-item" href="utilities-animation.html">Thảo luận của tôi</a>
           </div>
@@ -113,32 +113,30 @@
         </a>
         <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item active" href="blank.html">Blank Page</a>
+            <h6 class="collapse-header">Quản lý:</h6>
+            <a class="collapse-item" href="{{ route('show_user_staticstic_page') }}">Thống kê</a>
           </div>
         </div>
       </li>
       @endif
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Sự kiện</span></a>
+      <!--Manager-->
+      @if(Auth::user()->hasRole('content_executive'))
+      <li class="nav-item active">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Nội dung</span>
+        </a>
+        <div id="collapsePages1" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Nội dung:</h6>
+            <a class="collapse-item" href="{{ route('show_user_staticstic_page') }}">Thống kê</a>
+            <a class="collapse-item" href="{{ route('show_user_staticstic_page') }}">Phê duyệt bài viết</a>
+          </div>
+        </div>
       </li>
+      @endif
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -403,6 +401,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ URL::asset('js/sb-admin-2.min.js') }}"></script>
+  <script src="https://unpkg.com/tippy.js@5"></script>
 
   @yield('js')
 </body>

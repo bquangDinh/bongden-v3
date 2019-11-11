@@ -35,8 +35,8 @@ class ArticleController extends Controller
       return null;
     }
 
-    public function get_article($id){
-      return ArticleService::get_article($id);
+    public function get_article_ajax($id){
+      return ArticleService::get_article_ajax($id);
     }
 
     public function create(ArticleRequest $request){
@@ -49,9 +49,18 @@ class ArticleController extends Controller
       return view('userpage.user_blank')->with('success','Chúc mừng bạn đã tạo bài viết thành công. Bóng đèn lại sáng hơn nữa rồi !!!');
     }
 
+    public function update(ArticleRequest $request){
+      $err = ArticleService::update_article_with_request(Auth::user()->id,$request);
+
+      if($err == -1){
+        return view('userpage.user_blank')->with('error','Oops !!! Cập nhật không thành công.');
+      }
+      return view('userpage.user_blank')->with('success','Cập nhật thành công !');
+    }
+
     public function delete(Request $request){
       $article_id = $request->article_id;
-      $err = ArticleService::delete($article_id);
+      $err = ArticleService::delete_article($article_id);
       return $err;
     }
 }

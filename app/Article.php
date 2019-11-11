@@ -19,4 +19,8 @@ class Article extends Model
     public function getState(){
       return $this->hasOne('App\ArticleState');
     }
+
+    public function tags(){
+      return $this->hasMany('App\ArticleToTag');
+    }
 }

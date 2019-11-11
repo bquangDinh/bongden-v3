@@ -69,6 +69,11 @@ class ArticleService{
 
     return $article_state;
   }
+
+  public static function delete_state_of_article($article_id){
+    $article_state = ArticleState::where('article_id',$article_id)->first();
+    if($article_state) $article_state->delete();
+  }
   /*-----------------------*/
 
   /*Article Tag*/
@@ -113,10 +118,31 @@ class ArticleService{
     return $article_to_tag;
   }
 
+  //Precondition: $tagIDs is a list of tags after the article has changed.
+  //$article_id is the ID of the article in Article table.
+  //Postcondition: New tag will be added, a tag is not longer to be used will be removed.
   public static function update_article_tag($tagIDs,$article_id){
-  
+    foreach($tagIDs as $tagid){
+      ArticleService::add_article_tag($tagid,$article_id);
+    }
+
+    $avaiable_tags = ArticleToTag::where('article_id',$article_id)->get();
+
+    if(count($avaiable_tags) > 0){
+      foreach($avaiable_tags as $avaiable_tag){
+        if(in_array($avaiable_tag->tag_id,$tagIDs) == false){
+          ArticleToTag::destroy($avaiable_tag->id);
+        }
+      }
+    }
   }
 
+  public static function delete_tags_of_article($article_id){
+    $article_tags = ArticleToTag::where('article_id',$article_id)->get();
+    foreach($article_tags as $article_tag){
+      $article_tag->delete();
+    }
+  }
   /*-----------------------*/
 
   /*Article*/
@@ -129,13 +155,31 @@ class ArticleService{
       $request->content,
       $user_id,
       $request->submit,
-      $request->tag);
+      $request->tag
+    );
 
     if($article == null){
       return -1;
     }
 
     UserAchievementService::increase_article_by_user_id($user_id,$article->id);
+
+    return 0;
+  }
+
+  public static function update_article_with_request($user_id,$request){
+    $article = ArticleService::update_article(
+      $request->article_id,
+      $request->title,
+      $request->cover,
+      $request->subject,
+      $request->content,
+      $user_id,
+      $request->submit,
+      $request->tag
+    );
+
+    if($article == null) return -1;
 
     return 0;
   }
@@ -174,7 +218,7 @@ class ArticleService{
   //$user_id is the ID of the user in User table.
   //$article_id is the ID of the article in Article table.
   //Postcondition:
-  public static function update_article($user_id,$article_id,$title,$cover,$subject_id,$content,$user_id,$state,$tags){
+  public static function update_article($article_id,$title,$cover,$subject_id,$content,$user_id,$state,$tags){
     $article = Article::findOrFail($article_id);
     $article->title = $title;
     $article->cover_url = $cover;
@@ -192,10 +236,27 @@ class ArticleService{
     foreach($tagIDs as $tagid){
       ArticleService::add_article_tag($tagid,$article->id);
     }
+
+    ArticleService::update_article_tag($tagIDs,$article->id);
+
+    return $article;
   }
 
-  public static function delete_article(){
+  public static function delete_article($article_id){
+    try{
+      ArticleService::delete_state_of_article($article_id);
+      ArticleService::delete_tags_of_article($article_id);
 
+      $article = Article::find($article_id);
+      if($article) $article->delete();
+
+      UserAchievementService::decrease_article_by_user_id($article->author->id);
+
+    }catch(Exception $e){
+      return -1;
+    }
+
+    return 0;
   }
 
 
@@ -301,10 +362,15 @@ class ArticleService{
     return Article::where('user_id',$user_id)->orderBy('created_at','asc')->get();
   }
 
-  public static function get_article($id){
+  public static function get_article_ajax($id){
     $article = Article::findOrFail($id);
     $subject_name = $article->subject->name;
     $article->subject = $subject_name;
+    return $article;
+  }
+
+  public static function get_article($id){
+    $article = Article::findOrFail($id);
     return $article;
   }
 }

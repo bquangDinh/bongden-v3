@@ -58,7 +58,7 @@ Danh sách bài viết
       @endif
 
       <th>
-        <button type="button" class="btn btn-outline-success update-article-btn" onclick="window.location.href = '/user/article/view_ar/{{ $article->id }}'">Sửa</button>
+        <a class="btn btn-outline-success update-article-btn" href="{{ route('show_editing_article_page',[$article->id]) }}">Sửa</a>
       </th>
     </tr>
     @endforeach
