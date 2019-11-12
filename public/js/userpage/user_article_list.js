@@ -79,12 +79,13 @@ $(document).ready(function(){
 
     $.ajax({
       type:'GET',
-      url:'/user/article/admin_deleled_info/' + article_id,
+      url:'/user/article/denied_info/' + article_id,
       success:function(data){
         Swal.fire({
-          title:'Lý do',
           type:'info',
-          text:data
+          title: 'Bài viết của bạn đã bị từ chối',
+          text: data.reason,
+          footer: 'Từ ' + data.admin_name + ' &nbsp;&nbsp; <i class="fas fa-star" style="color: #f1c40f"></i>'
         });
       },
       error:function(jqXHR,exception){

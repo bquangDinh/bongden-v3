@@ -6,6 +6,7 @@ use App\ArticleSubject;
 use App\ArticleTag;
 use App\ArticleToTag;
 use App\Article;
+use App\DeniedArticle;
 
 use App\Http\Services\UserAchievementService;
 
@@ -49,7 +50,7 @@ class ArticleService{
   //If it cannot find, create a new one and fill the $state in and then return the record.
   //If it found the record => update and return it.
   public static function create_or_update_article_state($article_id,$state){
-    if($state != 'upload' && $state != 'uploaded' && $state != 'save'){
+    if($state != 'upload' && $state != 'uploaded' && $state != 'save' && $state != 'denied'){
       $state = 'save';
     }
 
@@ -340,6 +341,12 @@ class ArticleService{
   }
 
   public static function delete($article_id){
+    $current_state = ArticleState::where('article_id',$article_id)->firstOrFail();
+    
+    if($current_state->state == "uploaded"){
+      return -1;
+    }
+
     try{
       $article_state = ArticleState::where('article_id',$article_id)->firstOrFail();
       if($article_state) $article_state->delete();
@@ -372,6 +379,56 @@ class ArticleService{
   public static function get_article($id){
     $article = Article::findOrFail($id);
     return $article;
+  }
+
+  public static function get_pending_article(){
+    $articles = array();
+    $states = ArticleState::where('state','upload')->get();
+    foreach($states as $state){
+      array_push($articles,$state->article);
+    }
+    return $articles;
+  }
+
+  public static function deny_article($admin_id,$request){
+    if(!Article::find($request->article_id)){
+      //the article is properly deleted
+      return -1;
+    }
+
+    if(DeniedArticle::where('article_id',$request->article_id)->first()){
+      //the record has already existed
+      return -1;
+    }
+
+    $denied = new DeniedArticle;
+    $denied->article_id = $request->article_id;
+    $denied->reason = $request->reason;
+    $denied->admin_id = $admin_id;
+    $denied->save();
+
+    ArticleService::create_or_update_article_state($request->article_id,"denied");
+
+    return 0;
+  }
+
+  public static function get_denied_info($article_id){
+    $denied = DeniedArticle::where('article_id',$article_id)->first();
+    return $denied;
+  }
+
+  public static function approve_article($article_id){
+    try{
+      $article = Article::find($article_id);
+      $state = $article->getState;
+      $state->state = "uploaded";
+      $state->save();
+
+    }catch(Exception $e){
+      return -1;
+    }
+
+    return 0;
   }
 }
  ?>

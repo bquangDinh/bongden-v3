@@ -39,6 +39,28 @@ class ArticleController extends Controller
       return ArticleService::get_article_ajax($id);
     }
 
+    public function approve_article($article_id){
+      if(Auth::user()->hasRole('content_executive')){
+        $err = ArticleService::approve_article($article_id);
+        return $err;
+      }
+      return -1;
+    }
+
+    public function deny_article(Request $request){
+      if(Auth::user()->hasRole('content_executive')){
+        $err = ArticleService::deny_article(Auth::user()->id,$request);
+        return $err;
+      }
+      return -1;
+    }
+
+    public function get_denied_info($article_id){
+      $denied = ArticleService::get_denied_info($article_id);
+      $denied->admin_name = $denied->admin->name;
+      return $denied;
+    }
+
     public function create(ArticleRequest $request){
       $err = ArticleService::create_article_with_request(Auth::user()->id,$request);
 

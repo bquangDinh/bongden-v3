@@ -131,7 +131,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Nội dung:</h6>
             <a class="collapse-item" href="{{ route('show_user_staticstic_page') }}">Thống kê</a>
-            <a class="collapse-item" href="{{ route('show_user_staticstic_page') }}">Phê duyệt bài viết</a>
+            <a class="collapse-item" href="{{ route('show_article_approving_page') }}">Phê duyệt bài viết</a>
           </div>
         </div>
       </li>
@@ -310,15 +310,15 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <img class="img-profile rounded-circle" style="object-fit: cover" src="{{ Auth::user()->avatarURL }}">
+                <img class="img-profile rounded-circle" style="object-fit: cover" src="{{ Auth::user()->avatarURL }}" id="avatar-top-bar">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('show_user_profile_page') }}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Hồ sơ
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('show_user_changing_password_page') }}">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Đổi mật khẩu
                 </a>

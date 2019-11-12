@@ -1,0 +1,45 @@
+.avatar{
+  width: 100%;
+  height: 250px;
+}
+
+.avatar .user-avatar-d{
+  width: 80%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.avatar .user-avatar-d::before{
+  content: '';
+  padding-top: 100%;
+  float:left;
+}
+
+.avatar .user-avatar-d::after{
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.avatar .user-avatar-d img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.common-info{
+  width: 100%;
+  height: 250px;
+}
+
+@media only screen and (max-width: 576px){
+  h2{
+    font-size: 25px;
+  }
+
+  h4{
+    font-size: 20px;
+  }
+}

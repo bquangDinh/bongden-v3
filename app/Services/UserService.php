@@ -64,5 +64,27 @@ class UserService{
 
     return $user;
   }
+
+  public static function update_password($request){
+    $current_password = Auth::user()->password;
+    if(Hash::check($request->current_password,$current_password)){
+      $user = Auth::user();
+      $user->password = Hash::make($request->new_password);
+      $user->save();
+      return 0;
+    }
+    return -1;
+  }
+
+  public static function update_profile($request){
+    $filter_request = array_filter($request->all(),function($item_value){
+      if($item_value == ""){
+        return false;
+      }
+      return true;
+    });
+    Auth::user()->update($filter_request);
+    return 0;
+  }
 }
  ?>
