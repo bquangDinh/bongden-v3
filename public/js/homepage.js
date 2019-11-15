@@ -15,18 +15,13 @@ jQuery(".description").fitText(3,{
 });
 
 $(document).ready(function(){
-  $(".avatar").circleProgress({
-    value: 0.75,
-    size: 40,
-    fill: "#FF0266",
-    lineCap: "round"
-  });
-
-  $("#dark-switch-input").change(function(){
-    if(this.checked){
-      $(".table").addClass("table-dark");
-    }else{
-      $(".table").removeClass("table-dark");
-    }
+  $(".avatar").each(function(index){
+    let exp_percentage = $(this).data("exp-percentage");
+    $(this).circleProgress({
+      value: exp_percentage,
+      size: 40,
+      fill: "#FF0266",
+      lineCap: "round"
+    });
   });
 });

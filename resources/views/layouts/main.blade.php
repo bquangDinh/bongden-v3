@@ -62,7 +62,7 @@
       </nav>
     </header>
 
-    <form id="search-field" method="POST" action="/" role="search">
+    <form id="search-field" method="POST" action="{{ route('search') }}" role="search">
         {{ csrf_field() }}
         <input type="text" id="search-field__content" name="query" placeholder="Tìm kiếm bài viết..." spellcheck="false"/>
         <button type="button" id="search-field-close-btn">

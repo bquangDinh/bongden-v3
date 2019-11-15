@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
+Route::get('/', 'UserPageController@show_home_page')->name('home_page');
+Route::get('/reading/{article_id}','UserPageController@show_reading_page')->name('reading_page');
+Route::get('/articles','UserPageController@show_articles_page')->name('show_articles_page');
+Route::get('/forum','UserPageController@show_forum_page')->name('show_forum_page');
+Route::post('/search','SearchingController@search_term')->name('search');
 
 Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
   Route::get('/','UserController@show_dashboard')->name('user_dashboard');
@@ -32,6 +34,10 @@ Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
     Route::get('/get_article_subjects','ArticleController@get_all_subjects');
     Route::get('/get_tags_list','ArticleController@get_tags_with_query');
     Route::post('/add_image','ArticleController@add_image');
+    Route::post('/post_article_comment','ReadingController@add_comment_with_ajax');
+    Route::post('/post_article_reply','ReadingController@add_reply_with_ajax');
+    Route::post('/like_comment','ReadingController@like_comment_with_ajax');
+    Route::post('/unlike_comment','ReadingController@unlike_comment_with_ajax');
     Route::get('/get_discussion_categories','DiscussionController@get_discussion_categories');
   });
 

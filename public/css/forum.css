@@ -1,0 +1,224 @@
+#lastest-btn{
+  border-radius: 5px;
+  height: 40px;
+  width: 180px;
+  border-color: lightgray;
+  font-size: 14px;
+  border-width: 1px;
+  border-style: solid;
+  font-family: Comfortaa-Bold;
+  color: #707070;
+  box-shadow: 1px 4px 9px -10px; #000000;
+}
+
+.hidden-panel{
+    box-shadow: 1px 4px 9px -10px; #000000;
+}
+
+.shadow{
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.forum-container{
+  background: #ecf0f1;
+}
+
+.discussion{
+  height: 165px;
+  min-width: 700px;
+  border-radius: 8px;
+  box-shadow: 1px 4px 9px -10px; #000000;
+  position: relative;
+  background: white;
+  transition: background .5s;
+}
+
+.discussion:hover{
+  background: #2ecc71;
+}
+
+.discussion:hover .discussion-info-container{
+  color: white;
+}
+
+.discussion .category{
+  position: absolute;
+  height: 25px;
+  top: -10px;
+  right: 25px;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #bdc3c7;
+}
+
+.discussion .category a{
+  font-family: Roboto-Medium;
+  color: #707070;
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.discussion .category a i{
+  font-size: 10px;
+}
+
+.discussion .author-avatar-container img{
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.discussion .discussion-info-container .title{
+  font-family: Comfortaa-Bold;
+  font-size: 1.3em;
+}
+
+.discussion .discussion-info-container .title a{
+  text-decoration: none;
+  color: #2e2e2e;
+}
+
+.discussion .discussion-info-container .description{
+  font-family: Comfortaa-Regular;
+  font-size: 14px;
+}
+
+.discussion .commenter-avatar-list{
+  position: relative;
+}
+
+.discussion .commenter-avatar-list .avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50px;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.discussion .commenter-avatar-list .avatar:nth-child(1){
+  z-index: 4;
+  left: 0%;
+}
+
+.discussion .commenter-avatar-list .avatar:nth-child(2){
+  z-index: 3;
+  left: 15%;
+}
+
+.discussion .commenter-avatar-list .avatar:nth-child(3){
+  z-index: 2;
+  left: 30%;
+}
+
+.discussion .commenter-avatar-list .avatar:nth-child(4){
+  z-index: 1;
+  left: 45%;
+}
+
+.discussion .commenter-avatar-list .avatar:nth-child(5){
+  z-index: 0;
+  left: 60%;
+}
+
+.discussion .commenter-avatar-list .avatar-showing-more-btn {
+  border-color: lightgray;
+  color: lightgray;
+}
+
+.discussion .commenter-avatar-list .count-comment{
+  position: absolute;
+  top: 100px;
+  font-family: Comfortaa-Bold;
+  font-size: 14px;
+  left: 20%;
+}
+
+#start-new-discussion-btn{
+  width: 85%;
+  height: 40px;
+  border-radius: 7px;
+  background: #3498db;
+  color: white;
+  font-family: Comfortaa-Bold;
+  font-size: 14px;
+}
+
+.discussion-filter-field{
+  width: 85%;
+  height: 40px;
+  color: #2e2e2e;
+  font-family: Comfortaa-Bold;
+  font-size: 12px;
+}
+
+.page-item a, .page-item span{
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: #FF4181;
+  color: white;
+  text-decoration: none;
+  font-family: Comfortaa-Bold;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: 0;
+  transition: background .3s;
+}
+
+.page-item a:hover{
+  background-color: #ecf0f1;
+}
+
+.page-item.active span{
+  background-color: #2ecc71 !important;
+  width: 100px;
+}
+
+@media screen and (max-width: 768px){
+  .discussion{
+    height: 220px;
+  }
+
+  .discussion .commenter-avatar-list .avatar:nth-child(1){
+    z-index: 4;
+    left: 0%;
+  }
+
+  .discussion .commenter-avatar-list .avatar:nth-child(2){
+    z-index: 3;
+    left: 5%;
+  }
+
+  .discussion .commenter-avatar-list .avatar:nth-child(3){
+    z-index: 2;
+    left: 10%;
+  }
+
+  .discussion .commenter-avatar-list .avatar:nth-child(4){
+    z-index: 1;
+    left: 15%;
+  }
+
+  .discussion .commenter-avatar-list .avatar:nth-child(5){
+    z-index: 0;
+    left: 20%;
+  }
+
+  .discussion .commenter-avatar-list .count-comment{
+    top: 60px;
+    left: 28%;
+  }
+
+  .discussion .commenter-avatar-list{
+    margin-top: -30px;
+    margin-left: 15px;
+  }
+}

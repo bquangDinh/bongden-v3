@@ -7,6 +7,8 @@ use App\ArticleTag;
 use App\ArticleToTag;
 use App\Article;
 use App\DeniedArticle;
+use App\ArticleComment;
+use App\ArticleCommentLike;
 
 use App\Http\Services\UserAchievementService;
 
@@ -144,6 +146,29 @@ class ArticleService{
       $article_tag->delete();
     }
   }
+
+  public static function get_tags_with_query($query,$select2Format){
+    $term = trim($query->q);
+    $term = strtolower($term);
+
+    if(empty($term)){
+      return response()->json([]);
+    }
+
+    $tags = ArticleTag::search($term)->limit(5)->get();
+
+    if($select2Format){
+      $formatted_tags = [];
+
+      foreach($tags as $tag){
+        $formatted_tags[] = ['id' => $tag->id,'text' => $tag->name];
+      }
+
+      return response()->json($formatted_tags);
+    }
+
+    return response()->json($tags);
+  }
   /*-----------------------*/
 
   /*Article*/
@@ -243,6 +268,10 @@ class ArticleService{
     return $article;
   }
 
+  //Precondition: $article_id must be found in Article table
+  //$article_id is the ID of the article in Article table
+  //Postcondition: The function will delete the article step by step and safely
+  //if something gone wrong, -1 will be returned, otherwise 0 will be returned
   public static function delete_article($article_id){
     try{
       ArticleService::delete_state_of_article($article_id);
@@ -260,9 +289,6 @@ class ArticleService{
     return 0;
   }
 
-
-  /*-----------------------*/
-
   public static function get_all_subjects($select2Format){
     if($select2Format){
       $subjects = ArticleSubject::all();
@@ -276,93 +302,6 @@ class ArticleService{
     }
 
     return ArticleSubject::all();
-  }
-
-  public static function get_tags_with_query($query,$select2Format){
-    $term = trim($query->q);
-    $term = strtolower($term);
-
-    if(empty($term)){
-      return response()->json([]);
-    }
-
-    $tags = ArticleTag::search($term)->limit(5)->get();
-
-    if($select2Format){
-      $formatted_tags = [];
-
-      foreach($tags as $tag){
-        $formatted_tags[] = ['id' => $tag->id,'text' => $tag->name];
-      }
-
-      return response()->json($formatted_tags);
-    }
-
-    return response()->json($tags);
-  }
-
-  public static function getSubjectIDRange(){
-    $range = array();
-    $first = ArticleSubject::firstOrFail();
-    array_push($range,$first->id);
-
-    $lastest = ArticleSubject::latest()->first();
-    array_push($range,$lastest->id);
-
-    return $range;
-  }
-
-  public static function create($user_id,$request){
-    try{
-      $article = new Article;
-      $article->title = $request->title;
-      $article->cover_url = $request->cover;
-      $article->subject_id = $request->subject;
-      $article->content = $request->content;
-      $rawContent = new \Html2Text\Html2Text($request->content);
-      $article->wordCount = strlen($rawContent->getText());
-      $article->user_id = $user_id;
-      $article->save();
-
-      $article_state = new ArticleState;
-      $article_state->article_id = $article->id;
-      $article_state->state = $request->submit;
-      $article_state->save();
-
-      $tagIDs = ArticleTagService::add_tag_not_esxist($request->tag);
-
-      foreach($tagIDs as $tagid){
-        ArticleTagService::add_article_tag($tagid,$article->id);
-      }
-    }catch(Exception $e){
-      return -1;
-    }
-    return 0;
-  }
-
-  public static function delete($article_id){
-    $current_state = ArticleState::where('article_id',$article_id)->firstOrFail();
-    
-    if($current_state->state == "uploaded"){
-      return -1;
-    }
-
-    try{
-      $article_state = ArticleState::where('article_id',$article_id)->firstOrFail();
-      if($article_state) $article_state->delete();
-
-      $article_tags = ArticleToTag::where('article_id',$article_id)->get();
-      foreach($article_tags as $article_tag){
-        $article_tag->delete();
-      }
-
-      $article = Article::findOrFail($article_id);
-      if($article) $article->delete();
-    }catch(Exception $e){
-      return -1;
-    }
-
-    return 0;
   }
 
   public static function get_articles_with_user($user_id){
@@ -429,6 +368,67 @@ class ArticleService{
     }
 
     return 0;
+  }
+  /*-----------------------*/
+
+
+  /*Article Comment*/
+
+  public static function add_comment_with_request($user_id,$request){
+    $comment = ArticleService::add_comment($user_id,$request->article_id,$request->comment_content);
+    return $comment;
+  }
+
+  //Precondition: $user_id,$article_id must be found in database
+  //$user_id is the ID of the user who has written the comment
+  //$article_id is the ID of the article
+  //$comment_content is the content of the comment
+  //Postcondition: return a new comment
+  public static function add_comment($user_id,$article_id,$comment_content){
+    $comment = new ArticleComment;
+    $comment->user_id = $user_id;
+    $comment->article_id = $article_id;
+    $comment->content = $comment_content;
+    $comment->save();
+    return $comment;
+  }
+
+  public static function add_reply_with_request($user_id,$request){
+    $reply = ArticleService::add_reply($user_id,$request->article_id,$request->comment_content,$request->parent_id);
+    return $reply;
+  }
+
+  public static function add_reply($user_id,$article_id,$comment_content,$parent_id){
+    $comment = new ArticleComment;
+    $comment->user_id = $user_id;
+    $comment->article_id = $article_id;
+    $comment->content = $comment_content;
+    $comment->parent_id = $parent_id;
+    $comment->save();
+    return $comment;
+  }
+
+  public static function like_comment_with_request($user_id,$request){
+    $like = ArticleCommentLike::where('comment_id',$request->comment_id)->where('user_id',$user_id)->first();
+    if(!$like){
+      $new_like = new ArticleCommentLike;
+      $new_like->user_id = $user_id;
+      $new_like->comment_id = $request->comment_id;
+      $new_like->save();
+      return $new_like;
+    }
+
+    return $like;
+  }
+
+  public static function unlike_comment_with_request($user_id,$request){
+    $like = ArticleCommentLike::where('comment_id',$request->comment_id)->where('user_id',$user_id)->firstOrFail();
+    $like->delete();
+    return 0;
+  }
+
+  public static function comment_like_count($comment_id){
+    return count(ArticleCommentLike::where('comment_id',$comment_id)->get());
   }
 }
  ?>

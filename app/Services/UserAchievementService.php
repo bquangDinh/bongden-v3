@@ -36,6 +36,15 @@ class UserAchievementService{
     return $exp;
   }
 
+  public static function calculate_exp_percentage_to_next_level($user_id){
+    $user = User::find($user_id);
+    $userAchieveInfo = $user->achieveDetail;
+    $current_exp = $userAchieveInfo->exp;
+    $next_exp = UserAchievementService::calculate_exp_to_next_level($userAchieveInfo->level);
+    $percentage = ($current_exp / $next_exp);
+    return $percentage;
+  }
+
   /*---------------------------------------*/
 
   //Precondition: $user_id must be found in User table. Otherwise the funtion will be terminated.
@@ -50,7 +59,7 @@ class UserAchievementService{
     $userAchieveInfo->exp = $exp;
     $userAchieveInfo->level = UserAchievementService::calculate_level($exp);
     $userAchieveInfo->articleCount = $articleCount;
-    $userAchieveInfo->followerCount = $followerCount;
+    $userAchieveInfo->discussionCount = $followerCount;
     $userAchieveInfo->save();
     return $userAchieveInfo;
   }

@@ -27,13 +27,43 @@ function changetoDarkMode(darkmode){
   if(darkmode){
     $("body").removeClass("light");
     $("body").addClass("night");
+    setCookie("darkmode","on");
+    $('#dark-switch-input').prop('checked', true);
   }else{
     $("body").removeClass("night");
     $("body").addClass("light");
+    setCookie("darkmode","off");
+    $('#dark-switch-input').prop('checked', false);
   }
 }
 
+function setCookie(cname, cvalue) {
+  document.cookie = cname + "=" + cvalue;
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 $(document).ready(function(){
+  if(getCookie("darkmode") == "on"){
+    changetoDarkMode(true);
+  }else{
+    changetoDarkMode(false);
+  }
+
   $(".hamburger").on('click',function(){
     $(this).toggleClass('is-active');
     $(".navbar-mobile").toggleClass("is-open");
@@ -54,11 +84,38 @@ $(document).ready(function(){
   });
 
   $("#dark-switch-input").change(function(){
-    console.log("changed");
     if(this.checked){
       changetoDarkMode(true);
     }else{
       changetoDarkMode(false);
     }
+  });
+
+  $("#user-avatar").on('click',function(e){
+    let avatar_path = $(this).attr("src");
+    let user_name = $(this).data("usn");
+
+    Swal.fire({
+      title: user_name,
+      customClass:{
+        'image': 'popup-avatar'
+      },
+      imageUrl: avatar_path,
+      showConfirmButton: true,
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonText: 'Tới trang Dashboard',
+      cancelButtonText: 'Đăng xuất',
+      confirmButtonColor: '#2ecc71',
+      cancelButtonColor: '#e74c3c'
+    }).then(function(result){
+      if(typeof result.dismiss == "undefined"){
+        window.location.href = "/user";
+      }else{
+        if(result.dismiss == "cancel"){
+          window.location.href = "/bongden_logout";
+        }
+      }
+    });
   });
 });

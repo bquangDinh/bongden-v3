@@ -23,4 +23,25 @@ class Article extends Model
     public function tags(){
       return $this->hasMany('App\ArticleToTag');
     }
+
+    public function comments(){
+      return $this->hasMany('App\ArticleComment');
+    }
+
+    public function getReadingTime($wordCount){
+      $CONST = 200;
+      $time = $wordCount / $CONST;
+      $minutes = intval($time);
+      $seconds = intval(($time - $minutes) * 60);
+
+      if($minutes == 0){
+        return "$seconds giây";
+      }
+
+      if($seconds == 0){
+        return "$minutes phút";
+      }
+
+      return "$minutes phút và $seconds giây";
+    }
 }
