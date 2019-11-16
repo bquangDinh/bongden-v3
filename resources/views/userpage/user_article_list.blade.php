@@ -131,7 +131,9 @@ Danh sách bài viết
 <script src="{{ URL::asset('js/vendor/datatables.min.js') }}" charset="utf-8"></script>
 <script type="text/javascript" src="{{ URL::asset('js/vendor/animatedModal.min.js') }}"></script>
 <script type="text/javascript">
-    $("#article_table").DataTable();
+    $("#article_table").DataTable({
+      'paging': false
+    });
 </script>
 <script src="{{ URL::asset('js/userpage/user_article_list.js') }}" charset="utf-8"></script>
 @endsection

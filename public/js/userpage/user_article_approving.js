@@ -1,5 +1,9 @@
 $(document).ready(function(){
-  $("#article-table").DataTable();
+  $("#article-table").DataTable({
+    'paging': false
+  });
+
+  $(".open-article-preview").animatedModal();
 
   $.ajaxSetup({
     headers: {
@@ -7,7 +11,7 @@ $(document).ready(function(){
     }
   });
 
-  $(".open-article-preview").animatedModal();
+
 
   $(".open-article-preview").on('click',function(e){
     let article_id = $(this).data("article-id");
