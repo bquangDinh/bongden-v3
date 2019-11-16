@@ -15,4 +15,8 @@ class Discussion extends Model
     public function author(){
       return $this->belongsTo('App\User','thread_user_id');
     }
+
+    public function comments(){
+      return $this->hasMany('App\DiscussionComment');
+    }
 }

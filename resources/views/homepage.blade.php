@@ -26,35 +26,37 @@ Bóng Đèn
               <div class="row no-gutters">
                 <div class="col-md-7 col-12" style="position: relative">
                   <div class="cover">
-                    <img src="{{ $latest->article->cover_url }}" alt="lastest article cover">
+                    <img src="{{ $latest->cover_url }}" alt="lastest article cover">
                   </div>
                 </div>
                 <div class="col-md-5 col-12">
                   <div class="article-info">
-                    <span class="badge badge-success subject">
-                      {{ $latest->article->subject->name }}
-                    </span>
+                    <a href="{{ route('get_articles_with_subject',$latest->subject->id) }}">
+                      <span class="badge badge-success subject">
+                        {{ $latest->subject->name }}
+                      </span>
+                    </a>
                     <span class="badge badge-success reading-time">
-                      {{ $latest->article->getReadingTime($latest->article->wordCount) }}
+                      {{ $latest->getReadingTime($latest->wordCount) }}
                     </span>
                     <div class="info">
                       <p class="title">
-                        {{ $latest->article->title }}
+                        {{ $latest->title }}
                       </p>
                       <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-                        <div class="avatar" data-exp-percentage="{{ $latest->article->author->achieveDetail->exp_percentage_to_next_level($latest->article->author->id) }}">
-                          <img src="{{ $latest->article->author->avatarURL }}" alt="author avatar">
+                        <div class="avatar" data-exp-percentage="{{ $latest->author->achieveDetail->exp_percentage_to_next_level($latest->author->id) }}">
+                          <img src="{{ $latest->author->avatarURL }}" alt="author avatar">
                           <div class="user-level d-flex justify-content-center align-items-center">
-                            <span>{{ $latest->article->author->achieveDetail->level }}</span>
+                            <span>{{ $latest->author->achieveDetail->level }}</span>
                           </div>
                         </div>
                         <div class="name">
-                          {{ $latest->article->author->name }}
+                          {{ $latest->author->name }}
                         </div>
                       </div>
                     </div>
                     <div class="read-more-section">
-                      <button type="button" onclick="window.location.href = '/reading/{{ $latest->article->id }}'">
+                      <button type="button" onclick="window.location.href = '/reading/{{ $latest->id }}'">
                         Đọc thêm
                       </button>
                     </div>
@@ -72,35 +74,37 @@ Bóng Đèn
           <div class="col-lg-6 col-sm-12 mt-3">
             <div class="article-container w-100">
               <div class="cover">
-                <img src="{{ $recent->article->cover_url }}">
+                <img src="{{ $recent->cover_url }}">
               </div>
               <div class="article-info">
-                <span class="badge badge-success subject">
-                  {{ $recent->article->subject->name }}
-                </span>
+                <a href="{{ route('get_articles_with_subject',$recent->subject->id) }}">
+                  <span class="badge badge-success subject">
+                    {{ $recent->subject->name }}
+                  </span>
+                </a>
                 <span class="badge badge-success reading-time">
-                  {{ $recent->article->getReadingTime($recent->article->wordCount) }}
+                  {{ $recent->getReadingTime($recent->wordCount) }}
                 </span>
                 <div class="info">
                   <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-                    <div class="avatar" data-exp-percentage="{{ $recent->article->author->achieveDetail->exp_percentage_to_next_level($recent->article->author->id) }}">
-                      <img src="{{ $recent->article->author->avatarURL }}" alt="author avatar">
+                    <div class="avatar" data-exp-percentage="{{ $recent->author->achieveDetail->exp_percentage_to_next_level($recent->author->id) }}">
+                      <img src="{{ $recent->author->avatarURL }}" alt="author avatar">
                       <div class="user-level d-flex justify-content-center align-items-center">
                         <span>
-                          {{ $recent->article->author->achieveDetail->level }}
+                          {{ $recent->author->achieveDetail->level }}
                         </span>
                       </div>
                     </div>
                     <div class="name">
-                      {{ $recent->article->author->name }}
+                      {{ $recent->author->name }}
                     </div>
                   </div>
                   <p class="title">
-                    {{ $recent->article->title }}
+                    {{ $recent->title }}
                   </p>
                 </div>
                 <div class="read-more-section">
-                  <button onclick="window.location.href = '/reading/{{ $recent->article->id }}'">Đọc thêm</button>
+                  <button onclick="window.location.href = '/reading/{{ $recent->id }}'">Đọc thêm</button>
                 </div>
               </div>
             </div>
@@ -112,35 +116,37 @@ Bóng Đèn
           <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
             <div class="article-container w-100">
               <div class="cover">
-                <img src="{{ $recent->article->cover_url }}">
+                <img src="{{ $recent->cover_url }}">
               </div>
               <div class="article-info">
-                <span class="badge badge-success subject">
-                  {{ $recent->article->subject->name }}
-                </span>
+                <a href="{{ route('get_articles_with_subject',$recent->subject->id) }}">
+                  <span class="badge badge-success subject">
+                    {{ $recent->subject->name }}
+                  </span>
+                </a>
                 <span class="badge badge-success reading-time">
-                  {{ $recent->article->getReadingTime($recent->article->wordCount) }}
+                  {{ $recent->getReadingTime($recent->wordCount) }}
                 </span>
                 <div class="info">
                   <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-                    <div class="avatar" data-exp-percentage="{{ $recent->article->author->achieveDetail->exp_percentage_to_next_level($recent->article->author->id) }}">
-                      <img src="{{ $recent->article->author->avatarURL }}" alt="author avatar">
+                    <div class="avatar" data-exp-percentage="{{ $recent->author->achieveDetail->exp_percentage_to_next_level($recent->author->id) }}">
+                      <img src="{{ $recent->author->avatarURL }}" alt="author avatar">
                       <div class="user-level d-flex justify-content-center align-items-center">
                         <span>
-                          {{ $recent->article->author->achieveDetail->level }}
+                          {{ $recent->author->achieveDetail->level }}
                         </span>
                       </div>
                     </div>
                     <div class="name">
-                      {{ $recent->article->author->name }}
+                      {{ $recent->author->name }}
                     </div>
                   </div>
                   <p class="title">
-                    {{ $recent->article->title }}
+                    {{ $recent->title }}
                   </p>
                 </div>
                 <div class="read-more-section">
-                  <button onclick="window.location.href = '/reading/{{ $recent->article->id }}'">Đọc thêm</button>
+                  <button onclick="window.location.href = '/reading/{{ $recent->id }}'">Đọc thêm</button>
                 </div>
               </div>
             </div>

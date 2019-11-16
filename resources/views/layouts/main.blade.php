@@ -126,7 +126,7 @@
     <script src="{{ URL::asset('js/vendor/popper.min.js') }}" charset="utf-8"></script>
     <script src="{{ URL::asset('js/vendor/bootstrap.min.js') }}" charset="utf-8"></script>
     <script src="{{ URL::asset('js/vendor/sweetalert2.min.js') }}" charset="utf-8"></script>
-
+    <script src="https://unpkg.com/tippy.js@5"></script>
     <script src="{{ URL::asset('js/layouts/main.js') }}" charset="utf-8"></script>
 
     @yield('js')

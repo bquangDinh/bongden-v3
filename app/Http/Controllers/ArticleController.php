@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
+    public function get_articles_with_subject($subject_id){
+      $articles = ArticleService::get_articles_with_subject($subject_id);
+      return view('articles')->with('articles',$articles);  
+    }
+
     public function get_all_subjects(){
       return ArticleService::get_all_subjects(true);
     }

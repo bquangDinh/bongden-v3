@@ -10,6 +10,8 @@ use App\DeniedArticle;
 use App\ArticleComment;
 use App\ArticleCommentLike;
 
+use Illuminate\Database\Eloquent\Builder;
+
 use App\Http\Services\UserAchievementService;
 
 class ArticleService{
@@ -326,6 +328,15 @@ class ArticleService{
     foreach($states as $state){
       array_push($articles,$state->article);
     }
+    return $articles;
+  }
+
+  public static function get_articles_with_subject($subject_id){
+    $articles = Article::whereHas('getState',function(Builder $query){
+      $query->where('state','uploaded');
+    })->whereHas('subject',function(Builder $query) use ($subject_id){
+      $query->where('id',$subject_id);
+    })->simplePaginate(6);
     return $articles;
   }
 

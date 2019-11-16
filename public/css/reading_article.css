@@ -111,6 +111,7 @@ background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+
 }
 
 .article-content{
+  font-family: Comfortaa-Regular;
   transition: all .8s;
 }
 
