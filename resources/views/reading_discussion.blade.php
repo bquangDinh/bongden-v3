@@ -5,6 +5,7 @@
 @endsection
 
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" href="{{ URL::asset('css/reading_article.css') }}">
 @endsection
 
@@ -38,14 +39,55 @@
     </div>
   </div>
 </div>
+@if(Auth::check())
+<div class="row mt-3 mb-3 d-flex justify-content-center">
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-3 d-flex justify-content-center">
+        <button type="button" class="react-button" id="like-btn" data-liked-d-yet="{{ $discussion->likes->contains('reactor_id',Auth::user()->id) ? 'true' : 'false' }}">
+          <i class="fas fa-heart"></i>
+        </button>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        @php
+        $html = new \Html2Text\Html2Text($discussion->content);
+
+        $user_vote = null;
+
+        foreach($discussion->votes as $vote){
+          if($vote->reactor_id == Auth::user()->id){
+            $user_vote = $vote;
+            break;
+          }
+        }
+        @endphp
+        <button type="button" id="share-fb-btn" class="react-button" data-href="{{ URL::to('/').'/reading/'.$discussion->id }}" data-title="{{ $discussion->title }}" data-desc="{{ substr($html->getText(),0,150).'...' }}" data-image="{{ URL::asset('sources/images/protected/discussion_shared_background.png') }}">
+          <i class="fab fa-facebook"></i>
+        </button>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <button type="button" class="react-button" id="upvote-btn" data-voted-d-yet="{{ ($user_vote && $user_vote->vote == 'up') ? 'true' : 'false' }}">
+          <i class="fas fa-arrow-circle-up"></i>
+        </button>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+        <button type="button" class="react-button" id="downvote-btn" data-voted-d-yet="{{ ($user_vote && $user_vote->vote == 'down') ? 'true' : 'false' }}">
+          <i class="fas fa-arrow-circle-down"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+@else
 <div class="w-100 d-flex justify-content-center mt-3 mb-3">
   @php
   $html = new \Html2Text\Html2Text($discussion->content);
   @endphp
-  <button type="button" id="share-fb-btn" class="fb-share-button" data-href="{{ URL::to('/').'/reading/'.$discussion->id }}" data-title="{{ $discussion->title }}" data-desc="{{ substr($html->getText(),0,150).'...' }}">
+  <button type="button" id="share-fb-btn" class="react-button" data-href="{{ URL::to('/').'/reading/'.$discussion->id }}" data-title="{{ $discussion->title }}" data-desc="{{ substr($html->getText(),0,150).'...' }}" data-image="{{ URL::asset('sources/images/protected/discussion_shared_background.png') }}">
     <i class="fab fa-facebook"></i>
   </button>
 </div>
+@endif
 <!-- COMMENT SYSTEM -->
 <div class="row d-flex justify-content-center">
   <div class="col-md-8 col-sm-11">

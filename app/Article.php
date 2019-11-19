@@ -29,7 +29,7 @@ class Article extends Model
     }
 
     public function getReadingTime($wordCount){
-      $CONST = 200;
+      $CONST = 300;
       $time = $wordCount / $CONST;
       $minutes = intval($time);
       $seconds = intval(($time - $minutes) * 60);

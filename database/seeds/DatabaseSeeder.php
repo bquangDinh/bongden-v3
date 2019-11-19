@@ -20,5 +20,14 @@ class DatabaseSeeder extends Seeder
         //$this->call(ArticleSeeder::class);
           $this->call(DiscussionSeeder::class);
         /*Seeders in release stage*/
+
+        /*Seeders can be called in both*/
+        /*In order*/
+
+        $this->call(UserPermissionSeeder::class);
+        $this->call(UserRoleSeeder::class);
+        $this->call(UroleUpermissionSeeder::class);
+
+        
     }
 }

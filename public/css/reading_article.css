@@ -113,12 +113,12 @@ background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+
 .article-content{
   font-family: Comfortaa-Regular;
   transition: all .8s;
+  line-height: 3;
 }
 
 .article-content *{
   font-family: Comfortaa-Regular !important;
   color: #303030;
-  line-height: 2;
 }
 
 .article-content *:not(h2){
@@ -129,14 +129,31 @@ background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+
   color: #ecf0f1;
 }
 
-#share-fb-btn{
+#share-fb-btn:hover{
+  color:  #3498db;
+}
+
+#like-btn:hover{
+  color: #e74c3c;
+  opacity: 0.5;
+}
+
+#like-btn[data-liked-d-yet='true']{
+  color: #e74c3c;
+}
+
+#upvote-btn[data-voted-d-yet='true']{
+  color: #2ecc71;
+}
+
+#downvote-btn[data-voted-d-yet='true']{
+  color: #e74c3c;
+}
+
+.react-button{
   font-size: 2.5em;
   transition: all .3s;
   color: darkgray;
-}
-
-#share-fb-btn:hover{
-  color:  #3498db;
 }
 
 .article-content img{

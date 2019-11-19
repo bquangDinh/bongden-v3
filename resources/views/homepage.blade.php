@@ -178,138 +178,43 @@ Bóng Đèn
     </div>
     <div class="col-md-9 col-sm-12">
       <div class="row">
+        @foreach($discussions as $discussion)
         <div class="col-md-6 col-12">
           <div class="new-discussion-container d-flex justify-content-center align-items-center">
             <div class="new-discussion-inner">
               <div class="user-avatar-container w-100 d-flex align-items-center mt-3 ml-3">
-                <div class="avatar">
-                  <img src="http://bongden.org/sources/images/logo.png">
+                <div class="avatar" data-exp-percentage="{{ $discussion->author->achieveDetail->exp_percentage_to_next_level($discussion->author->id) }}">
+                  <img src="{{ $discussion->author->avatarURL }}">
                   <div class="user-level d-flex justify-content-center align-items-center">
-                    <span>35</span>
+                    <span>{{ $discussion->author->achieveDetail->level }}</span>
                   </div>
                 </div>
                 <div class="name">
-                  Bui Quang Dinh
+                  {{ $discussion->author->name }}
                 </div>
               </div>
-              <span class="badge badge-secondary ds-type">FAQ</span>
+              <span class="badge badge-secondary ds-type">
+                {{ $discussion->category->name }}
+              </span>
               <div class="w-100 d-flex justify-content-center">
                 <div class="w-75">
-                  <p href="" class="ds-title">
-                    How to make a link look like a button? How to make a link look like a button?
+                  <p class="ds-title">
+                    {{ $discussion->title }}
                   </p>
                 </div>
               </div>
               <div class="control-container">
                 <p class="ds-comment">
-                36 comments
+                {{ count($discussion->comments) }} bình luận
                 </p>
-                <a href="" class="btn redirect-ds-reading">
+                <a href="{{ route('discussion_reading_page',$discussion->id) }}" class="btn redirect-ds-reading">
                   Đọc thêm
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-12">
-          <div class="new-discussion-container d-flex justify-content-center align-items-center">
-            <div class="new-discussion-inner">
-              <div class="user-avatar-container w-100 d-flex align-items-center mt-3 ml-3">
-                <div class="avatar">
-                  <img src="http://bongden.org/sources/images/logo.png">
-                  <div class="user-level d-flex justify-content-center align-items-center">
-                    <span>35</span>
-                  </div>
-                </div>
-                <div class="name">
-                  Bui Quang Dinh
-                </div>
-              </div>
-              <span class="badge badge-secondary ds-type">FAQ</span>
-              <div class="w-100 d-flex justify-content-center">
-                <div class="w-75">
-                  <p href="" class="ds-title">
-                    How to make a link look like a button? How to make a link look like a button?
-                  </p>
-                </div>
-              </div>
-              <div class="control-container">
-                <p class="ds-comment">
-                36 comments
-                </p>
-                <a href="" class="btn redirect-ds-reading">
-                  Đọc thêm
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12">
-          <div class="new-discussion-container d-flex justify-content-center align-items-center">
-            <div class="new-discussion-inner">
-              <div class="user-avatar-container w-100 d-flex align-items-center mt-3 ml-3">
-                <div class="avatar">
-                  <img src="http://bongden.org/sources/images/logo.png">
-                  <div class="user-level d-flex justify-content-center align-items-center">
-                    <span>35</span>
-                  </div>
-                </div>
-                <div class="name">
-                  Bui Quang Dinh
-                </div>
-              </div>
-              <span class="badge badge-secondary ds-type">FAQ</span>
-              <div class="w-100 d-flex justify-content-center">
-                <div class="w-75">
-                  <p href="" class="ds-title">
-                    How to make a link look like a button? How to make a link look like a button?
-                  </p>
-                </div>
-              </div>
-              <div class="control-container">
-                <p class="ds-comment">
-                36 comments
-                </p>
-                <a href="" class="btn redirect-ds-reading">
-                  Đọc thêm
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12">
-          <div class="new-discussion-container d-flex justify-content-center align-items-center">
-            <div class="new-discussion-inner">
-              <div class="user-avatar-container w-100 d-flex align-items-center mt-3 ml-3">
-                <div class="avatar">
-                  <img src="http://bongden.org/sources/images/logo.png">
-                  <div class="user-level d-flex justify-content-center align-items-center">
-                    <span>35</span>
-                  </div>
-                </div>
-                <div class="name">
-                  Bui Quang Dinh
-                </div>
-              </div>
-              <span class="badge badge-secondary ds-type">FAQ</span>
-              <div class="w-100 d-flex justify-content-center">
-                <div class="w-75">
-                  <p href="" class="ds-title">
-                    How to make a link look like a button? How to make a link look like a button?
-                  </p>
-                </div>
-              </div>
-              <div class="control-container">
-                <p class="ds-comment">
-                36 comments
-                </p>
-                <a href="" class="btn redirect-ds-reading">
-                  Đọc thêm
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -320,5 +225,6 @@ Bóng Đèn
 @section('js')
 <script src="{{ URL::asset('js/vendor/circle-progress.min.js') }}" charset="utf-8"></script>
 <script src="{{ URL::asset('js/vendor/jquery.fittext.js') }}" charset="utf-8"></script>
+<script src="{{ URL::asset('js/vendor/particles.min.js') }}" charset="utf-8"></script>
 <script src="{{ URL::asset('js/homepage.js') }}" charset="utf-8"></script>
 @endsection

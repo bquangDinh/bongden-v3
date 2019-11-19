@@ -5,9 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta content="science, camping, event, research, education">
+    <meta name="description" content="Bóng Đèn là tổ chức khoa học dành cho học sinh cấp 2 với mục tiêu mang lại kiến thức khoa học theo cách thú vị và nhiều màu sắc hơn là những kiến thức khô khan trong sách giáo khoa. Còn đợi gì nữa mà không tham gia với tụi mình.">
     <title>
       @yield('title')
     </title>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-57x57.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-114x114.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-72x72.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-144x144.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-60x60.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-120x120.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-76x76.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ URL::asset('sources/images/protected/icon/apple-touch-icon-152x152.png') }}" />
+    <link rel="icon" type="image/png" href="{{ URL::asset('sources/images/protected/icon/favicon-196x196.png') }}" sizes="196x196" />
+    <link rel="icon" type="image/png" href="{{ URL::asset('sources/images/protected/icon/favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/png" href="{{ URL::asset('sources/images/protected/icon/favicon-32x32.png') }}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ URL::asset('sources/images/protected/icon/favicon-16x16.png') }}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{{ URL::asset('sources/images/protected/icon/favicon-128.png') }}" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{{ URL::asset('sources/images/protected/icon/mstile-144x144.png') }}" />
+    <meta name="msapplication-square70x70logo" content="{{ URL::asset('sources/images/protected/icon/mstile-70x70.png') }}" />
+    <meta name="msapplication-square150x150logo" content="{{ URL::asset('sources/images/protected/icon/mstile-150x150.png') }}" />
+    <meta name="msapplication-wide310x150logo" content="{{ URL::asset('sources/images/protected/icon/mstile-310x150.png') }}" />
+    <meta name="msapplication-square310x310logo" content="{{ URL::asset('sources/images/protected/icon/mstile-310x310.png') }}" />
 
     <link rel="stylesheet" href="{{ URL::asset('css/vendor/bootstrap.min.css') }}">
 
@@ -17,6 +40,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/vendor/hamburgers.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/vendor/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/vendor/material-scrolltop.css') }}">
 
     <link rel="stylesheet" href="{{ URL::asset('css/layouts/main.css') }}">
 
@@ -119,14 +143,99 @@
     </div>
 
     <div class="main-content">
+      <button class="material-scrolltop" type="button"></button>
       @yield('content')
     </div>
+
+    <footer class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <div class="panel d-flex justify-content-center align-items-center">
+            <div class="panel__inner ml-3">
+              <h3 class="f-title">
+                Về Bóng Đèn
+              </h3>
+              <p class="f-content mt-3">
+                Sân chơi khoa học ứng dụng dành cho lứa tuổi 11-15.
+Like fanpage để cập nhật thông tin Khoa học thú vị hằng ngày!
+              </p>
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="f-title">
+                    Huế
+                  </h5>
+                  <a href="https://www.facebook.com/bongdencamp/" target="_blank" class="mt-3 share-page-btn">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                </div>
+                <div class="col-6">
+                  <h5 class="f-title">
+                    Đà Nẵng
+                  </h5>
+                  <a href="https://www.facebook.com/bongdendn/" target="_blank" class="mt-3 share-page-btn">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="panel d-flex justify-content-center align-items-center">
+            <div class="panel__inner">
+              <h3 class="f-title">Liên hệ</h3>
+              <div class="row">
+                <div class="col-md-6 col-12 mt-3">
+                  <h5 class="f-title">Huế</h5>
+                  <div class="mt-3">
+                    <div class="f-content">
+                      <a href="">Dương Anh Thi</a>
+                      <h6>thybabie572@gmail.com</h6>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <div class="f-content">
+                      <a href="#">Hoàng Thanh Nga</a>
+                      <h6>htnga810@gmail.com</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12 mt-3">
+                  <h5 class="f-title">Đà Nẵng</h5>
+                  <div class="mt-3">
+                    <div class="f-content">
+                      <a href="#">Phan Hồ Khánh Linh</a>
+                      <h6>linhkhanhhophan@gmail.com</h6>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <div class="f-content">
+                      <a href="#">Trần Phú Thức</a>
+                      <h6>lewisthuc@gmail.com</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-12">
+          <div class="panel d-flex justify-content-center align-items-center">
+            <div class="panel__inner">
+              <img src="{{ URL::asset('sources/images/protected/icon/mstile-310x310.png') }}" alt="logo" id="bd-logo">
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <script src="{{ URL::asset('js/vendor/jquery-3.4.1.min.js') }}" charset="utf-8"></script>
     <script src="{{ URL::asset('js/vendor/popper.min.js') }}" charset="utf-8"></script>
     <script src="{{ URL::asset('js/vendor/bootstrap.min.js') }}" charset="utf-8"></script>
     <script src="{{ URL::asset('js/vendor/sweetalert2.min.js') }}" charset="utf-8"></script>
     <script src="https://unpkg.com/tippy.js@5"></script>
+    <script src="{{ URL::asset('js/vendor/material-scrolltop.js') }}"></script>
+
     <script src="{{ URL::asset('js/layouts/main.js') }}" charset="utf-8"></script>
 
     @yield('js')

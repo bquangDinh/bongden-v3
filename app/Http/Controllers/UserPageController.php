@@ -8,6 +8,7 @@ use App\Http\Services\DiscussionService;
 
 use App\Article;
 use App\ArticleState;
+use App\Discussion;
 
 use Illuminate\Database\Eloquent\Builder;
 
@@ -20,8 +21,9 @@ class UserPageController extends Controller
       $recents = Article::whereHas('getState',function(Builder $query){
         $query->where('state','uploaded');
       })->where('id','<>',$latest->id)->latest()->take(3)->get();
+      $recents_discussion = Discussion::latest()->take(4)->get();
 
-      return view('homepage')->with('latest',$latest)->with('recents',$recents);
+      return view('homepage')->with('latest',$latest)->with('recents',$recents)->with('discussions',$recents_discussion);
     }
 
     public function show_reading_page($article_id){

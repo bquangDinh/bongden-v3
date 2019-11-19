@@ -17,6 +17,31 @@ body.night #create-new-discussion-btn{
   background: #e14594;
 }
 
+.page-item a, .page-item span{
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: #FF4181;
+  color: white;
+  text-decoration: none;
+  font-family: Comfortaa-Bold;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border: 0;
+  transition: background .3s;
+}
+
+.page-item a:hover{
+  background-color: #ecf0f1;
+}
+
+.page-item.active span{
+  background-color: #2ecc71 !important;
+  width: 100px;
+}
+
 #create-new-discussion-btn{
   background: #3CACFD;
   font-family: Comfortaa-Bold;
@@ -135,6 +160,10 @@ body.night #create-new-discussion-btn{
 }
 
 @media only screen and (max-width: 768px){
+  .page-item a, .page-item span{
+    width: 100px; 
+  }
+
   .user-avatar-container{
     height: 50px !important;
     display: block !important;

@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
+Thảo luận
 @endsection
 
 @section('css')
@@ -13,12 +14,7 @@
 </div>
 <div class="container-fluid forum-container">
   <div class="row">
-    <div class="col-md-3 col-12">
-      <div class="discussion-control w-100 d-flex justify-content-center mt-5">
-        <a href="{{ route('show_creating_discussion_page') }}" class="btn btn-primary w-75" id="create-new-discussion-btn">Tạo thảo luận</a>
-      </div>
-    </div>
-    <div class="col-md-9 col-12">
+    <div class="col-12">
       @foreach($discussions as $discussion)
       <div class="discussion-container w-100 mt-5">
         <div class="row">
@@ -39,7 +35,7 @@
           </div>
           <div class="col-md-6 col-12">
             <div class="discussion-info-container w-100">
-              <h3 class="discussion-title mt-2">
+              <h3 class="discussion-title">
                 <a href="{{ route('discussion_reading_page',$discussion->id) }}">
                   {{ $discussion->title }}
                 </a>
@@ -62,23 +58,17 @@
                 </div>
                 <div class="col-3 d-flex justify-content-center align-items-center">
                   <div class="tippy" data-tippy-message="Số lượt thích">
-                    @php
-                    $likes_count = 0;
-                    foreach($discussion->comments as $comment){
-                      $likes_count += count($comment->likes);
-                    }
-                    @endphp
-                    <i class="fas fa-heart" style="color:#FC427B"></i> {{ $likes_count }}
+                    <i class="fas fa-heart" style="color:#FC427B"></i> {{ count($discussion->likes) }}
                   </div>
                 </div>
                 <div class="col-3 d-flex justify-content-center align-items-center">
                   <div class="tippy" data-tippy-message="Số phiếu tích cực">
-                    <i class="fas fa-chevron-circle-up" style="color: #2ecc71"></i> {{ $discussion->upvote }}
+                    <i class="fas fa-chevron-circle-up" style="color: #2ecc71"></i> {{ sizeof($discussion->upvotes) }}
                   </div>
                 </div>
                 <div class="col-3 d-flex justify-content-center align-items-center">
                   <div class="tippy" data-tippy-message="Số phiếu tiêu cực">
-                    <i class="fas fa-chevron-circle-down" style="color: #e74c3c"></i> {{ $discussion->downvote }}
+                    <i class="fas fa-chevron-circle-down" style="color: #e74c3c"></i> {{ sizeof($discussion->downvotes) }}
                   </div>
                 </div>
               </div>
@@ -148,6 +138,12 @@
         </div>
         <div class="discussion-type d-flex justify-content-center align-items-center">
           <a href="#"><i class="fas fa-circle" style="font-size: 10px"></i> Homework</a>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-center mt-5">
+        <div class="col-10 d-flex justify-content-center">
+          {{ $discussions->links('vendor.pagination.simple-bootstrap-4') }}
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ Route::get('/reading/{article_id}','UserPageController@show_reading_page')->name
 Route::get('/discussion/{discussion_id}','UserPageController@show_discussion_reading_page')->name('discussion_reading_page');
 Route::get('/articles','UserPageController@show_articles_page')->name('show_articles_page');
 Route::get('/forum','UserPageController@show_forum_page')->name('show_forum_page');
-Route::post('/search','SearchingController@search_term')->name('search');
+Route::any('/search','SearchingController@search_term')->name('search');
 Route::get('/articles_with_subject/{subject_id}','ArticleController@get_articles_with_subject')->name('get_articles_with_subject');
 
 Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
@@ -46,6 +46,10 @@ Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
     Route::post('/post_discussion_reply','DiscussionController@add_reply_with_ajax');
     Route::post('/like_discussion_comment','DiscussionController@like_comment_with_ajax');
     Route::post('/unlike_discussion_comment','DiscussionController@unlike_comment_with_ajax');
+    Route::post('/like_discussion','DiscussionController@like_discussion_with_ajax');
+    Route::post('/unlike_discussion','DiscussionController@unlike_discussion_with_ajax');
+    Route::post('/upvote_discussion','DiscussionController@upvote_discussion_with_ajax');
+    Route::post('/downvote_discussion','DiscussionController@downvote_discussion_with_ajax');
 
     Route::get('/get_discussion_categories','DiscussionController@get_discussion_categories');
   });

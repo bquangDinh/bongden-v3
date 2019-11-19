@@ -40,9 +40,11 @@ Bóng Đèn
           <img src="{{ $article->cover_url }}">
         </div>
         <div class="article-info">
-          <span class="badge badge-success subject">
-            {{ $article->subject->name }}
-          </span>
+          <a href="{{ route('get_articles_with_subject',$article->subject->id) }}">
+            <span class="badge badge-success subject">
+              {{ $article->subject->name }}
+            </span>
+          </a>
           <span class="badge badge-success reading-time">
             {{ $article->getReadingTime($article->wordCount) }}
           </span>
@@ -92,9 +94,11 @@ Bóng Đèn
           <img src="{{ $article->cover_url }}">
         </div>
         <div class="article-info">
-          <span class="badge badge-success subject">
-            {{ $article->subject->name }}
-          </span>
+          <a href="{{ route('get_articles_with_subject',$article->subject->id) }}">
+            <span class="badge badge-success subject">
+              {{ $article->subject->name }}
+            </span>
+          </a>
           <span class="badge badge-success reading-time">
             {{ $article->getReadingTime($article->wordCount) }}
           </span>
@@ -144,9 +148,11 @@ Bóng Đèn
           <img src="{{ $article->cover_url }}">
         </div>
         <div class="article-info">
-          <span class="badge badge-success subject">
-            {{ $article->subject->name }}
-          </span>
+          <a href="{{ route('get_articles_with_subject',$article->subject->id) }}">
+            <span class="badge badge-success subject">
+              {{ $article->subject->name }}
+            </span>
+          </a>
           <span class="badge badge-success reading-time">
             {{ $article->getReadingTime($article->wordCount) }}
           </span>

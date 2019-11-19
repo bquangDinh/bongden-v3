@@ -1,17 +1,7 @@
-jQuery(".name").fitText(0.9,{
-  minFontSize: '12px'
-});
-jQuery(".lastest-article-container .title").fitText(1.9,{
-  maxFontSize: '22px'
-});
-jQuery(".article-container .title").fitText(2.5,{
-  minFontSize: '20px'
-});
-jQuery(".recent-article .title").fitText(4,{
-  minFontSize: '14px'
-});
-jQuery(".description").fitText(3,{
-  maxFontSize: '16px'
+
+
+particlesJS.load('particles-js','sources/data/json/particles.json',function(){
+  console.log('callback - particles.js config loaded');
 });
 
 $(document).ready(function(){

@@ -19,4 +19,20 @@ class Discussion extends Model
     public function comments(){
       return $this->hasMany('App\DiscussionComment');
     }
+
+    public function likes(){
+      return $this->hasMany('App\DiscussionLike');
+    }
+
+    public function votes(){
+      return $this->hasMany('App\DiscussionVote');
+    }
+
+    public function upvotes(){
+      return $this->hasMany('App\DiscussionVote')->where('vote','up');
+    }
+
+    public function downvotes(){
+      return $this->hasMany('App\DiscussionVote')->where('vote','down');
+    }
 }

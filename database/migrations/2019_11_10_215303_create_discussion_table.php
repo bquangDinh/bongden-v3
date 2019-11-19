@@ -22,8 +22,6 @@ class CreateDiscussionTable extends Migration
             $table->integer('thread_category_id')->unsigned();
             $table->foreign('thread_category_id')->references('id')->on('discussion_category');
             $table->integer('wordCount');
-            $table->integer('upvote')->default(0);
-            $table->integer('downvote')->default(0);
             $table->timestamps();
         });
     }

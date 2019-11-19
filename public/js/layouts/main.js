@@ -58,6 +58,8 @@ function getCookie(cname) {
 }
 
 $(document).ready(function(){
+  $('body').materialScrollTop();
+  
   if(getCookie("darkmode") == "on"){
     changetoDarkMode(true);
   }else{

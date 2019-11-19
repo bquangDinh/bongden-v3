@@ -19,6 +19,20 @@ function scrollToElement(pageElement) {
     }
 }
 
+function animateCSS(element, animationName, callback) {
+    const node = document.querySelector(element)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+
+        if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
+}
+
 var ID = function () {
   // Math.random should be unique because of its seeding algorithm.
   // Convert it to base 36 (numbers + letters), and grab the first 9 characters
@@ -48,6 +62,156 @@ $(document).ready(function(){
   });
 
   /*Events*/
+  $("#like-btn").click(function(e){
+    let discussion_id = $("#discussion-id").val();
+    let that = this;
+    let direct = $(this).data("liked-d-yet");
+    let url = "";
+    if(direct == true){
+      //unlike
+      url = "/user/action/unlike_discussion";
+      $(this).data("liked-d-yet",false);
+      $(this).attr("data-liked-d-yet",false);
+      animateCSS("#like-btn","bounce");
+    }else{
+      //like
+      url = "/user/action/like_discussion";
+      $(this).data("liked-d-yet",true);
+      $(this).attr("data-liked-d-yet",true);
+      animateCSS("#like-btn","heartBeat");
+    }
+
+    $.ajax({
+      type:'POST',
+      data:{
+        discussion_id:discussion_id
+      },
+      url:url,
+      success:function(data){
+        if(data == -1){
+          Swal.fire({
+            type:'error',
+            title:'Đăng nhập để tiếp tục',
+            showConfirmButton:true,
+            showCancelButton:true,
+            confirmButtonText:"Đăng nhập",
+            cancleButtonText:'Đóng'
+          }).then(function(result){
+            if(result.value){
+              window.location.href = "/bongden_login";
+            }
+          });
+        }else{
+          Swal.fire({
+            type:'success',
+            title: direct ? 'Đã bỏ thích' : 'Đã thích',
+            position:'top-end',
+            showConfirmButton:false,
+            timer:1500,
+            toast:true
+          });
+        }
+      },
+      error:function(jqXHR,exception){
+        console.log(jqXHR.responseText);
+      }
+    });
+  });
+
+  $("#upvote-btn").click(function(e){
+      let discussion_id = $("#discussion-id").val();
+      let that = this;
+      $.ajax({
+        type:'POST',
+        data:{
+          discussion_id:discussion_id
+        },
+        url:'/user/action/upvote_discussion',
+        success:function(data){
+          if(data == "unauthorized"){
+            Swal.fire({
+              type:'error',
+              title:'Đăng nhập để tiếp tục',
+              showConfirmButton:true,
+              showCancelButton:true,
+              confirmButtonText:"Đăng nhập",
+              cancleButtonText:'Đóng'
+            }).then(function(result){
+              if(result.value){
+                window.location.href = "/bongden_login";
+              }
+            });
+          }else{
+            if(data == "permission_denied"){
+              Swal.fire({
+                type:'error',
+                title:'Oops !',
+                text:'Cấp độ của bạn chưa đủ để mở tính năng bỏ phiếu. Đạt cấp 4 để mở tính năng này'
+              });
+            }else{
+              animateCSS("#upvote-btn","fadeOutUp");
+              $(that).data("voted-d-yet",true);
+              $(that).attr("data-voted-d-yet",true);
+              if($("#downvote-btn").data("voted-d-yet") == true){
+                $("#downvote-btn").data("voted-d-yet",false);
+                $("#downvote-btn").attr("data-voted-d-yet",false);
+              }
+            }
+          }
+        },
+        error:function(jqXHR,exception){
+          console.log(jqXHR.responseText);
+        }
+      });
+  });
+
+  $("#downvote-btn").click(function(e){
+      let discussion_id = $("#discussion-id").val();
+      let that = this;
+      $.ajax({
+        type:'POST',
+        data:{
+          discussion_id:discussion_id
+        },
+        url:'/user/action/downvote_discussion',
+        success:function(data){
+          if(data == "unauthorized"){
+            Swal.fire({
+              type:'error',
+              title:'Đăng nhập để tiếp tục',
+              showConfirmButton:true,
+              showCancelButton:true,
+              confirmButtonText:"Đăng nhập",
+              cancleButtonText:'Đóng'
+            }).then(function(result){
+              if(result.value){
+                window.location.href = "/bongden_login";
+              }
+            });
+          }else{
+            if(data == "permission_denied"){
+              Swal.fire({
+                type:'error',
+                title:'Oops !',
+                text:'Cấp độ của bạn chưa đủ để mở tính năng bỏ phiếu. Đạt cấp 4 để mở tính năng này'
+              });
+            }else{
+              animateCSS("#downvote-btn","fadeOutDown");
+              $(that).data("voted-d-yet",true);
+              $(that).attr("data-voted-d-yet",true);
+              if($("#upvote-btn").data("voted-d-yet") == true){
+                $("#upvote-btn").data("voted-d-yet",false);
+                $("#upvote-btn").attr("data-voted-d-yet",false);
+              }
+            }
+          }
+        },
+        error:function(jqXHR,exception){
+          console.log(jqXHR.responseText);
+        }
+      });
+  });
+
   $("#send-answer-btn").click(function(e){
     let discussion_id = $("#discussion-id").val();
     let comment_content = $("#answerbox-input").val();
@@ -184,5 +348,27 @@ $(document).ready(function(){
         console.log(jqXHR.responseText);
       }
     });
+  });
+
+  //SHARING FACEBOOK
+  window.fbAsyncInit = function(){
+FB.init({
+    appId: '681364862313844', status: true, cookie: true, xfbml: true });
+};
+(function(d, debug){var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if(d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id;
+    js.async = true;js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+    ref.parentNode.insertBefore(js, ref);}(document, /*debug*/ false));
+function postToFeed(title, desc, url, image){
+var obj = {method: 'feed',link: url, picture: 'http://www.url.com/images/'+image,name: title,description: desc};
+function callback(response){}
+FB.ui(obj, callback);
+}
+
+  $("#share-fb-btn").on('click',function(e){
+    let elem = $(this);
+    postToFeed(elem.data('title'), elem.data('desc'), elem.data('href'), elem.data('image'));
+    return false;
   });
 });

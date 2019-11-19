@@ -62,4 +62,50 @@ class DiscussionController extends Controller
 
       return -1;
     }
+
+    public function like_discussion_with_ajax(Request $request){
+      if(Auth::check()){
+        $like = DiscussionService::like_discussion_with_request(Auth::user()->id,$request);
+        $count = DiscussionService::count_like_discussion($request->discussion_id);
+        return $count;
+      }
+
+      return -1;
+    }
+
+    public function unlike_discussion_with_ajax(Request $request){
+      if(Auth::check()){
+        DiscussionService::unlike_discussion_with_request(Auth::user()->id,$request);
+        $count = DiscussionService::count_like_discussion($request->discussion_id);
+        return $count;
+      }
+
+      return -1;
+    }
+
+    public function upvote_discussion_with_ajax(Request $request){
+      if(Auth::check()){
+        if(Auth::user()->achieveDetail->level >= 4 && Auth::user()->hasPermission('vote_discussion')){
+          DiscussionService::upvote_discussion_with_request(Auth::user()->id,$request);
+          return 0;
+        }else{
+          return "permission_denied";
+        }
+      }
+
+      return "unauthorized";
+    }
+
+    public function downvote_discussion_with_ajax(Request $request){
+      if(Auth::check()){
+        if(Auth::user()->achieveDetail->level >= 4  && Auth::user()->hasPermission('vote_discussion')){
+          DiscussionService::downvote_discussion_with_request(Auth::user()->id,$request);
+          return 0;
+        }else{
+          return "permission_denied";
+        }
+      }
+
+      return "unauthorized";
+    }
 }

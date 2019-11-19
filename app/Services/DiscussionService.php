@@ -6,6 +6,8 @@ use App\Discussion;
 use App\DiscussionCategory;
 use App\DiscussionComment;
 use App\DiscussionCommentLike;
+use App\DiscussionLike;
+use App\DiscussionVote;
 
 use App\Http\Services\UserAchievementService;
 
@@ -114,13 +116,74 @@ class DiscussionService{
   }
 
   public static function unlike_comment_with_request($user_id,$request){
-    $like = DiscussionCommentLike::where('comment_id',$request->comment_id)->where('user_id',$user_id)->firstOrFail();
-    $like->delete();
+    $like = DiscussionCommentLike::where('comment_id',$request->comment_id)->where('user_id',$user_id)->first();
+    if($like){
+      $like->delete();
+    }
     return 0;
   }
 
   public static function comment_like_count($comment_id){
     return count(DiscussionCommentLike::where('comment_id',$comment_id)->get());
+  }
+
+  public static function like_discussion_with_request($user_id,$request){
+    return DiscussionService::like_discussion($user_id,$request->discussion_id);
+  }
+
+  public static function like_discussion($user_id,$discussion_id){
+    $like = DiscussionLike::where('reactor_id',$user_id)->where('discussion_id',$discussion_id)->first();
+    if(!$like){
+      $new_like = new DiscussionLike;
+      $new_like->discussion_id = $discussion_id;
+      $new_like->reactor_id = $user_id;
+      $new_like->save();
+      return $new_like;
+    }
+
+    return $like;
+  }
+
+  public static function unlike_discussion_with_request($user_id,$request){
+    $like = DiscussionLike::where('reactor_id',$user_id)->where('discussion_id',$request->discussion_id)->first();
+    if($like){
+      $like->delete();
+    }
+    return 0;
+  }
+
+  public static function count_like_discussion($discussion_id){
+    return count(DiscussionLike::where('discussion_id',$discussion_id)->get());
+  }
+
+  public static function upvote_discussion_with_request($user_id,$request){
+    $vote = DiscussionVote::where('discussion_id',$request->discussion_id)->where('reactor_id',$user_id)->first();
+    if($vote){
+      $vote->vote = "up";
+      $vote->save();
+    }else{
+      $new_vote = new DiscussionVote;
+      $new_vote->discussion_id = $request->discussion_id;
+      $new_vote->reactor_id = $user_id;
+      $new_vote->vote = "up";
+      $new_vote->save();
+    }
+    return 0;
+  }
+
+  public static function downvote_discussion_with_request($user_id,$request){
+    $vote = DiscussionVote::where('discussion_id',$request->discussion_id)->where('reactor_id',$user_id)->first();
+    if($vote){
+      $vote->vote = "down";
+      $vote->save();
+    }else{
+      $new_vote = new DiscussionVote;
+      $new_vote->discussion_id = $request->discussion_id;
+      $new_vote->reactor_id = $user_id;
+      $new_vote->vote = "down";
+      $new_vote->save();
+    }
+    return 0;
   }
 }
  ?>

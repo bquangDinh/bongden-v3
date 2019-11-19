@@ -31,7 +31,7 @@
       </h1>
 
       <div class="article-type d-flex justify-content-center mt-4">
-        <a href="#">
+        <a href="{{ route('get_articles_with_subject',$article->subject->id) }}">
           {{ $article->subject->name }}
         </a>
       </div>
@@ -49,7 +49,7 @@
   @php
   $html = new \Html2Text\Html2Text($article->content);
   @endphp
-  <button type="button" id="share-fb-btn" class="fb-share-button" data-href="{{ URL::to('/').'/reading/'.$article->id }}" data-image="{{ $article->cover_url }}" data-title="{{ $article->title }}" data-desc="{{ substr($html->getText(),0,150).'...' }}">
+  <button type="button" id="share-fb-btn" class="react-button" data-href="{{ URL::to('/').'/reading/'.$article->id }}" data-image="{{ $article->cover_url }}" data-title="{{ $article->title }}" data-desc="{{ substr($html->getText(),0,150).'...' }}">
     <i class="fab fa-facebook"></i>
   </button>
 </div>

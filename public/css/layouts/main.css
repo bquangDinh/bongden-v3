@@ -443,6 +443,38 @@ html, body, h1 {
   letter-spacing: 1em;
 }
 
+footer{
+	background: #37383B;
+}
+
+footer .panel{
+	height: 300px;
+}
+
+footer .panel .panel__inner{
+}
+
+footer .panel .f-title{
+	font-family: Comfortaa-Bold;
+	color: #ecf0f1;
+}
+
+footer .panel .f-content{
+	font-family: Comfortaa-Regular;
+	color: lightgray;
+}
+
+footer .share-page-btn{
+	font-size: 2em;
+}
+
+footer #bd-logo{
+	width: 100px;
+	height: 100px;
+	border-radius: 20px;
+	object-fit: cover;
+}
+
 /* Our mixin positions a copy of our text
 directly on our existing text, while
 also setting content to the appropriate
