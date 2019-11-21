@@ -1,7 +1,7 @@
 <div class="cm-outer-pack">
   <div class="cm-container mt-3">
     <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
-      <div class="avatar" data-exp-percentage="{{ $comment->commentor->achieveDetail->exp_percentage_to_next_level($comment->commentor->id) }}">
+      <div class="avatar" data-us-id="{{ $comment->commentor->id }}" data-exp-percentage="{{ $comment->commentor->achieveDetail->exp_percentage_to_next_level($comment->commentor->id) }}">
         <img src="{{ $comment->commentor->avatarURL }}" alt="user avatar">
         <div class="user-level d-flex justify-content-center align-items-center">
           <span>

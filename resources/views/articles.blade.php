@@ -32,7 +32,7 @@ Bóng Đèn
           </span>
           <div class="info">
             <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-              <div class="avatar" data-exp-percentage="{{ $article->author->achieveDetail->exp_percentage_to_next_level($article->author->id) }}">
+              <div class="avatar" data-us-id="{{ $article->author->id }}" data-exp-percentage="{{ $article->author->achieveDetail->exp_percentage_to_next_level($article->author->id) }}">
                 <img src="{{ $article->author->avatarURL }}" alt="author avatar">
                 <div class="user-level d-flex justify-content-center align-items-center">
                   <span>

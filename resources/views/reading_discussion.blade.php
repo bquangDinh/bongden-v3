@@ -5,7 +5,6 @@
 @endsection
 
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 <link rel="stylesheet" href="{{ URL::asset('css/reading_article.css') }}">
 @endsection
 
@@ -102,7 +101,7 @@
             <!--Answer box-->
             <div id="answer-box" class="cm-container mt-3">
               <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
-                <div class="avatar" data-exp-percentage="{{ Auth::user()->achieveDetail->exp_percentage_to_next_level(Auth::user()->id) }}">
+                <div class="avatar" data-us-id="{{ Auth::user()->id }}" data-exp-percentage="{{ Auth::user()->achieveDetail->exp_percentage_to_next_level(Auth::user()->id) }}">
                   <img src="{{ Auth::user()->avatarURL }}" alt="user avatar">
                   <div class="user-level d-flex justify-content-center align-items-center">
                     <span>
@@ -134,7 +133,7 @@
                 <div class="col-11">
                   <div class="cm-container">
                     <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
-                      <div class="avatar" data-exp-percentage="{{ Auth::user()->achieveDetail->exp_percentage_to_next_level(Auth::user()->id) }}">
+                      <div class="avatar" data-us-id="{{ Auth::user()->id }}" data-exp-percentage="{{ Auth::user()->achieveDetail->exp_percentage_to_next_level(Auth::user()->id) }}">
                         <img src="{{ Auth::user()->avatarURL }}" alt="user avatar">
                         <div class="user-level d-flex justify-content-center align-items-center">
                           <span>
@@ -172,7 +171,7 @@
               <div class="cm-outer-pack mt-3">
                 <div class="cm-container">
                   <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
-                    <div class="avatar" data-exp-percentage="{{ $comment->commentor->achieveDetail->exp_percentage_to_next_level($comment->commentor->id) }}">
+                    <div class="avatar" data-us-id="{{ $comment->commentor->id }}" data-exp-percentage="{{ $comment->commentor->achieveDetail->exp_percentage_to_next_level($comment->commentor->id) }}">
                       <img src="{{ $comment->commentor->avatarURL }}" alt="user avatar">
                       <div class="user-level d-flex justify-content-center align-items-center">
                         <span>

@@ -18,6 +18,7 @@ Route::get('/articles','UserPageController@show_articles_page')->name('show_arti
 Route::get('/forum','UserPageController@show_forum_page')->name('show_forum_page');
 Route::any('/search','SearchingController@search_term')->name('search');
 Route::get('/articles_with_subject/{subject_id}','ArticleController@get_articles_with_subject')->name('get_articles_with_subject');
+Route::post('/user_preview','UserPageController@show_user_profile_preview');
 
 Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
   Route::get('/','UserController@show_dashboard')->name('user_dashboard');

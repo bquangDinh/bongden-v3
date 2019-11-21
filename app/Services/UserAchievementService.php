@@ -353,5 +353,24 @@ class UserAchievementService{
     $achieve = $uA->achieve;
     return $achieve;
   }
+
+  public static function get_latest_achievement_of_user($user_id){
+    $achieve = UserAchievement::where('user_id',$user_id)->latest()->firstOrFail();
+    return $achieve;
+  }
+
+  public static function get_user_preview($user_id){
+    $user = User::find($user_id);
+    $user->article_count = count($user->articles);
+    $user->discussion_count = count($user->discussions);
+    $user->level = $user->achieveDetail->level;
+    $user->exp = $user->achieveDetail->exp;
+    $achieve = UserAchievementService::get_latest_achievement_of_user($user_id);
+    $user->achieve = $achieve->achievement->name;
+    unset($user["articles"]);
+    unset($user["discussions"]);
+    unset($user["achieve_detail"]);
+    return $user;
+  }
 }
  ?>

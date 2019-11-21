@@ -71,6 +71,23 @@ body.night #search-field__content{
 	color: #ecf0f1;
 }
 
+body.night #user-profile{
+	background: #17223b;
+}
+
+body.night #user-profile *{
+	color: #ff6768;
+}
+
+body.night #us-pr-last-achieve{
+	background: #263859;
+}
+
+body.night #us-pr-close{
+	background: #6b778d;
+	color: #ff6768;
+}
+
 .row.no-gutters{
 	margin-right: 0;
 	margin-left: 0;
@@ -475,6 +492,80 @@ footer #bd-logo{
 	object-fit: cover;
 }
 
+#user-profile{
+	position: fixed;
+	top: 15%;
+	left: 32%;
+	right: 32%;
+	height: 80vh;
+	background: #ecf0f1;
+	z-index: 998;
+	border-radius: 20px;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	transition: background .8s;
+	display: none;
+}
+
+#us-pr-close{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	background: #e74c3c;
+	color: white;
+	transition: background .8s;
+}
+
+#us-pr-logo{
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+#us-pr-name{
+	text-align: center;
+	font-family: Comfortaa-Regular;
+	font-size: 1.3em;
+}
+
+.us-pr-p-container{
+	height: 100px;
+}
+
+.us-pr-p-title{
+	font-family: Comfortaa-Bold;
+}
+
+#us-pr-p-ar-count,#us-pr-p-dis-count,#us-pr-p-level-count,#us-pr-p-exp-count{
+	font-family: Comfortaa-Regular;
+	font-size: 2em;
+	text-align: center;
+}
+
+#us-pr-last-achieve{
+	height: 30px;
+	background: white;
+	border-radius: 20px;
+	text-align: center;
+	transition: background .8s;
+}
+
+#us-pr-last-achieve .medal{
+	color: #f1c40f;
+}
+
+#us-pr-last-achieve-name{
+	font-family: Comfortaa-Regular;
+	font-size: 1.2em;
+}
+
+#us-pr-more-detail{
+	font-family: Comfortaa-Bold;
+}
+
 /* Our mixin positions a copy of our text
 directly on our existing text, while
 also setting content to the appropriate
@@ -740,11 +831,8 @@ skew to change the 'thickness' of the glitch.*/
 }
 
 @media only screen and (max-width: 768px){
-	.footer .info-container:first-child{
-		height: 400px;
-	}
-
-	.footer .info-container .title:first-child{
-		text-align: center;
+	#user-profile{
+		left: 5%;
+		right: 5%;
 	}
 }

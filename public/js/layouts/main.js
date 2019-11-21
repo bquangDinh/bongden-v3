@@ -57,9 +57,42 @@ function getCookie(cname) {
   return "";
 }
 
+function animateCSS(element, animationName, callback) {
+    const node = document.querySelector(element)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+
+        if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
+}
+
+function openUserProfile(user){
+  $("#us-pr-logo").attr("src",user.logo);
+  $("#us-pr-name").html(user.name);
+  $("#us-pr-last-achieve-name").html(user.achieve);
+  $("#us-pr-p-ar-count").html(user.article_count);
+  $("#us-pr-p-dis-count").html(user.discussion_count);
+  $("#us-pr-p-level-count").html(user.level);
+  $("#us-pr-p-exp-count").html(user.exp);
+
+  $("#user-profile").show();
+  animateCSS("#user-profile","bounceIn");
+}
+
 $(document).ready(function(){
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
   $('body').materialScrollTop();
-  
+
   if(getCookie("darkmode") == "on"){
     changetoDarkMode(true);
   }else{
@@ -91,6 +124,41 @@ $(document).ready(function(){
     }else{
       changetoDarkMode(false);
     }
+  });
+
+  $(document).on("click",".avatar",function(){
+    let user_id = $(this).data("us-id");
+    if(user_id){
+      $.ajax({
+        type:'POST',
+        data:{
+          user_id:user_id
+        },
+        url:'/user_preview',
+        success:function(data){
+          console.log(data);
+          let d = {
+            logo:data.avatarURL,
+            name:data.name,
+            article_count:data.article_count,
+            discussion_count:data.discussion_count,
+            level:data.level,
+            exp:data.exp,
+            achieve:data.achieve
+          }
+          openUserProfile(d);
+        },
+        error:function(jqXHR,exception){
+          console.log(jqXHR.responseText);
+        }
+      });
+    }
+  });
+
+  $("#us-pr-close").on('click',function(e){
+    animateCSS("#user-profile","zoomOut",function(){
+      $("#user-profile").hide();
+    });
   });
 
   $("#user-avatar").on('click',function(e){

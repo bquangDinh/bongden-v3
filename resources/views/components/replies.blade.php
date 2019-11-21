@@ -3,7 +3,7 @@
   <div class="col-11">
     <div class="cm-container">
       <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
-        <div class="avatar" data-exp-percentage="{{ $reply->commentor->achieveDetail->exp_percentage_to_next_level($reply->commentor->id) }}">
+        <div class="avatar" data-us-id="{{ $reply->commentor->id }}" data-exp-percentage="{{ $reply->commentor->achieveDetail->exp_percentage_to_next_level($reply->commentor->id) }}">
           <img src="{{ $reply->commentor->avatarURL }}" alt="user avatar">
           <div class="user-level d-flex justify-content-center align-items-center">
             <span>

@@ -44,7 +44,7 @@ Bóng Đèn
                         {{ $latest->title }}
                       </p>
                       <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-                        <div class="avatar" data-exp-percentage="{{ $latest->author->achieveDetail->exp_percentage_to_next_level($latest->author->id) }}">
+                        <div class="avatar" data-us-id="{{ $latest->author->id }}" data-exp-percentage="{{ $latest->author->achieveDetail->exp_percentage_to_next_level($latest->author->id) }}">
                           <img src="{{ $latest->author->avatarURL }}" alt="author avatar">
                           <div class="user-level d-flex justify-content-center align-items-center">
                             <span>{{ $latest->author->achieveDetail->level }}</span>
@@ -87,7 +87,7 @@ Bóng Đèn
                 </span>
                 <div class="info">
                   <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-                    <div class="avatar" data-exp-percentage="{{ $recent->author->achieveDetail->exp_percentage_to_next_level($recent->author->id) }}">
+                    <div class="avatar" data-us-id="{{ $recent->author->id }}" data-exp-percentage="{{ $recent->author->achieveDetail->exp_percentage_to_next_level($recent->author->id) }}">
                       <img src="{{ $recent->author->avatarURL }}" alt="author avatar">
                       <div class="user-level d-flex justify-content-center align-items-center">
                         <span>
@@ -129,7 +129,7 @@ Bóng Đèn
                 </span>
                 <div class="info">
                   <div class="user-avatar-container mt-2 w-100 d-flex align-items-center">
-                    <div class="avatar" data-exp-percentage="{{ $recent->author->achieveDetail->exp_percentage_to_next_level($recent->author->id) }}">
+                    <div class="avatar" data-us-id="{{ $recent->author->id }}" data-exp-percentage="{{ $recent->author->achieveDetail->exp_percentage_to_next_level($recent->author->id) }}">
                       <img src="{{ $recent->author->avatarURL }}" alt="author avatar">
                       <div class="user-level d-flex justify-content-center align-items-center">
                         <span>
@@ -183,7 +183,7 @@ Bóng Đèn
           <div class="new-discussion-container d-flex justify-content-center align-items-center">
             <div class="new-discussion-inner">
               <div class="user-avatar-container w-100 d-flex align-items-center mt-3 ml-3">
-                <div class="avatar" data-exp-percentage="{{ $discussion->author->achieveDetail->exp_percentage_to_next_level($discussion->author->id) }}">
+                <div class="avatar" data-us-id="{{ $discussion->author->id }}" data-exp-percentage="{{ $discussion->author->achieveDetail->exp_percentage_to_next_level($discussion->author->id) }}">
                   <img src="{{ $discussion->author->avatarURL }}">
                   <div class="user-level d-flex justify-content-center align-items-center">
                     <span>{{ $discussion->author->achieveDetail->level }}</span>

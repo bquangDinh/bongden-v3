@@ -42,6 +42,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
     <link rel="stylesheet" href="{{ URL::asset('css/vendor/material-scrolltop.css') }}">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
     <link rel="stylesheet" href="{{ URL::asset('css/layouts/main.css') }}">
 
     @yield('css')
@@ -144,10 +146,84 @@
 
     <div class="main-content">
       <button class="material-scrolltop" type="button"></button>
+      <div id="user-profile">
+        <button type="button" id="us-pr-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="row d-flex justify-content-center mt-5">
+          <img src="https://www.pcgamesn.com/wp-content/uploads/2019/04/Astroneer-My-base-900x506.jpg" alt="user logo" id="us-pr-logo">
+        </div>
+        <div class="mt-3 w-100" id="us-pr-name">
+          Bui Quang Dinh
+        </div>
+        <div class="mt-3 w-100 d-flex justify-content-center">
+          <div id="us-pr-last-achieve" class="w-75">
+            <i class="fab fa-medapps medal"></i>
+            <i class="fab fa-medapps medal"></i>
+            <i class="fab fa-medapps medal"></i>
+            <i id="us-pr-last-achieve-name">Nhà thông thái</i>
+            <i class="fab fa-medapps medal"></i>
+            <i class="fab fa-medapps medal"></i>
+            <i class="fab fa-medapps medal"></i>
+          </div>
+        </div>
+        <div class="mt-3 row w-100">
+          <div class="col-6">
+            <div class="us-pr-p-container d-flex justify-content-center">
+              <div>
+                <span class="us-pr-p-title">
+                  Số bài viết
+                </span>
+                <div id="us-pr-p-ar-count">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="us-pr-p-container d-flex justify-content-center">
+              <div>
+                <span class="us-pr-p-title">
+                  Số thảo luận
+                </span>
+                <div id="us-pr-p-dis-count">
+                  5
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 row w-100">
+          <div class="col-6">
+            <div class="us-pr-p-container d-flex justify-content-center">
+              <div>
+                <span class="us-pr-p-title">
+                  Cấp độ
+                </span>
+                <div id="us-pr-p-level-count">
+                  10
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="us-pr-p-container d-flex justify-content-center">
+              <div>
+                <span class="us-pr-p-title">
+                  Kinh nghiệm
+                </span>
+                <div id="us-pr-p-exp-count">
+                  5
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       @yield('content')
     </div>
 
-    <footer class="container-fluid">
+    <footer class="container-fluid mt-3">
       <div class="row">
         <div class="col-md-4 col-12">
           <div class="panel d-flex justify-content-center align-items-center">

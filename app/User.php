@@ -53,6 +53,10 @@ class User extends Authenticatable
       return $this->hasMany('App\Article');
     }
 
+    public function discussions(){
+      return $this->hasMany('App\Discussion','thread_user_id');
+    }
+
     public function withRoles(){
       return $this->hasMany('App\UserToRole');
     }

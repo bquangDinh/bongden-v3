@@ -20,7 +20,7 @@ Thảo luận
         <div class="row">
           <div class="col-md-2 col-12">
             <div class="user-avatar-container w-100 h-100 d-flex align-items-center justify-content-center">
-              <div class="avatar" data-exp-percentage="{{ $discussion->author->achieveDetail->exp_percentage_to_next_level($discussion->author->id) }}">
+              <div class="avatar" data-us-id="{{ $discussion->author->id }}" data-exp-percentage="{{ $discussion->author->achieveDetail->exp_percentage_to_next_level($discussion->author->id) }}">
                 <img src="{{ $discussion->author->avatarURL }}" alt="author avatar">
                 <div class="user-level d-flex justify-content-center align-items-center">
                   <span>

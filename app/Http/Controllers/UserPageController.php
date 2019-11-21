@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Services\ArticleService;
 use App\Http\Services\DiscussionService;
+use App\Http\Services\UserAchievementService;
 
 use App\Article;
 use App\ArticleState;
 use App\Discussion;
+use App\User;
 
 use Illuminate\Database\Eloquent\Builder;
 
@@ -49,5 +51,10 @@ class UserPageController extends Controller
     public function show_discussion_reading_page($discussion_id){
       $discussion = DiscussionService::get_discussion($discussion_id);
       return view('reading_discussion')->with('discussion',$discussion);
+    }
+
+    public function show_user_profile_preview(Request $request){
+      $data = UserAchievementService::get_user_preview($request->user_id);
+      return $data;
     }
 }
