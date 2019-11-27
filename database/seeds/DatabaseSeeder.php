@@ -38,5 +38,6 @@ class DatabaseSeeder extends Seeder
         /*------------------------------*/
 
         /*Seeders in release stage*/
+        $this->call(SubjectReleaseSeeder::class);
     }
 }
