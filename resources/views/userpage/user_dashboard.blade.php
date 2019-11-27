@@ -118,26 +118,8 @@ Dashboard
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2 tooltip-o" data-tooltip-message="Bạn cần {{ $exp_to_next_level }} điểm để lên cấp tiếp theo">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Tổng kinh nghiệm
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          {{ Auth::user()->achieveDetail->exp }} / {{ $exp_to_next_level }}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-angle-double-right fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6 col-md-12 mb-4">
+    @if($next_medal)
+    <div class="col-xl-9 col-md-12 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -156,6 +138,24 @@ Dashboard
             </div>
         </div>
     </div>
+    @endif
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Tổng quan về kinh nghiệm</h6>
+      </div>
+      <div class="card-body">
+        <h4 class="small font-weight-bold">Tổng kinh nghiệm
+          <span style="float:right">{{ Auth::user()->achieveDetail->exp }} / {{ $exp_to_next_level }}</span>
+        </h4>
+        <div class="progress mb-4 tooltip-o" data-tooltip-message="Bạn cần {{ $exp_to_next_level }} điểm để lên cấp tiếp theo">
+          <div class="progress-bar" role="progressbar" style="width: {{ intval(Auth::user()->achieveDetail->exp * 100 / $exp_to_next_level) }}%" aria-valuenow="{{ intval(Auth::user()->achieveDetail->exp * 100 / $exp_to_next_level) }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row">
     <div class="col-12">

@@ -13,16 +13,16 @@ use App\User;
 use App\Http\Services\ArticleService;
 
 class UserAchievementService{
-  const LEVEL_UP_CONS = 0.8;
-  const ARTICLE_EXP = 10;
-  const DISCUSSION_EXP = 5;
+  const LEVEL_UP_CONS = 0.398;
+  const ARTICLE_EXP = 70;
+  const DISCUSSION_EXP = 50;
 
   /*Level and exp calculation helper*/
 
   //Precondition: $exp must be positive.
   //Postcondition: the function will calculate the corresponding level and then return the level.
   public static function calculate_level($exp){
-    $level = self::LEVEL_UP_CONS * sqrt($exp);
+    $level = self::LEVEL_UP_CONS * sqrt($exp - 100);
     $level = intval($level);
     return $level;
   }
@@ -31,7 +31,7 @@ class UserAchievementService{
   //Postcondition: the function will calculate how much needing exp to the next level and then return the exp amount.
   public static function calculate_exp_to_next_level($current_level){
     $next_level = $current_level + 1;
-    $exp = pow(($next_level / self::LEVEL_UP_CONS),2);
+    $exp = (pow($next_level,2) + pow(self::LEVEL_UP_CONS,2) * 100) / pow(self::LEVEL_UP_CONS,2);
     $exp = intval($exp);
     return $exp;
   }
@@ -89,9 +89,9 @@ class UserAchievementService{
   //Postcondition: the function will take all corresponding roles follow by the achievement info and then return it as array.
   public static function get_roles_by_achievement_info($userAchieveInfo){
     $roles = array();
-    $rolesWithLevel = UserAchievementRole::where('level','=',$userAchieveInfo->level)->get();
-    $rolesWithArticleCount = UserAchievementRole::where('articleCount','=',$userAchieveInfo->articleCount)->get();
-    $rolesWithDiscussionCount = UserAchievementRole::where('discussionCount','=',$userAchieveInfo->followerCount)->get();
+    $rolesWithLevel = UserAchievementRole::where('level','<=',$userAchieveInfo->level)->where('level','<>',-1)->get();
+    $rolesWithArticleCount = UserAchievementRole::where('articleCount','<=',$userAchieveInfo->articleCount)->where('articleCount','<>',-1)->get();
+    $rolesWithDiscussionCount = UserAchievementRole::where('discussionCount','<=',$userAchieveInfo->discussionCount)->where('discussionCount','<>',-1)->get();
 
     foreach($rolesWithLevel as $role){
       array_push($roles,$role);
@@ -200,13 +200,13 @@ class UserAchievementService{
   //the ARTICLE_EXP rule and return the record for other using. Otherwise return the unchanging user achievement info.
   public static function increase_article($userAchieveInfo, $article_id){
     $isUploaded = ArticleService::is_uploaded_article($article_id);
-
+    $article = ArticleService::get_article($article_id);
     if($isUploaded){
       //will be added later
     }
 
     $userAchieveInfo->increment('articleCount');
-    $newExp = $userAchieveInfo->exp + self::ARTICLE_EXP;
+    $newExp = $userAchieveInfo->exp + self::ARTICLE_EXP + intval(0.05 * $article->wordCount);
     $newLevel = UserAchievementService::calculate_level($newExp);
     $userAchieveInfo->exp = $newExp;
     $userAchieveInfo->level = $newLevel;
@@ -349,9 +349,12 @@ class UserAchievementService{
     $userAchieveInfo = UserAchievementInfo::where('user_id',$user_id)->firstOrFail();
     $current_level = $userAchieveInfo->level;
     $role_for_next_medal = UserAchievementRole::where('level','>',$current_level)->first();
-    $uA = UserAchievementService::get_achievement_by_role($role_for_next_medal->id);
-    $achieve = $uA->achieve;
-    return $achieve;
+    if($role_for_next_medal){
+      $uA = UserAchievementService::get_achievement_by_role($role_for_next_medal->id);
+      $achieve = $uA->achieve;
+      return $achieve;
+    }
+    return null;
   }
 
   public static function get_latest_achievement_of_user($user_id){

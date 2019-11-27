@@ -30,6 +30,20 @@
         {{ $article->title }}
       </h1>
 
+      <div class="w-100 mt-3 mb-3 d-flex justify-content-center flex-column align-items-center">
+        <div class="avatar" data-us-id="{{ $article->author->id }}" data-exp-percentage="{{ $article->author->achieveDetail->exp_percentage_to_next_level($article->author->id) }}">
+          <img src="{{ $article->author->avatarURL }}" alt="author avatar">
+          <div class="user-level d-flex justify-content-center align-items-center">
+            <span>
+              {{ $article->author->achieveDetail->level }}
+            </span>
+          </div>
+        </div>
+        <div class="name">
+          {{ $article->author->name }}
+        </div>
+      </div>
+
       <div class="article-type d-flex justify-content-center mt-4">
         <a href="{{ route('get_articles_with_subject',$article->subject->id) }}">
           {{ $article->subject->name }}
@@ -38,6 +52,15 @@
 
       <div class="article-content mt-5">
         {!! $article->content !!}
+      </div>
+
+      <div class="artilce-tags">
+        Tags:
+        @foreach($article->tags as $t)
+        <a href="/search?query={{ $t->tag->name }}">
+          <span class="badge badge-dark">{{ $t->tag->name }}</span>
+        </a>
+        @endforeach
       </div>
     </div>
     <div class="col-md-2 col-1">
@@ -134,7 +157,7 @@
             <div class="cm-list-container mt-3">
               @foreach($article->comments as $comment)
               @if(!$comment->parent_id)
-              <div class="cm-outer-pack mt-3">
+              <div class="cm-outer-pack mt-3" id="cm-bl-{{ $comment->id }}">
                 <div class="cm-container">
                   <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
                     <div class="avatar" data-us-id="{{ $comment->commentor->id }}" data-exp-percentage="{{ $comment->commentor->achieveDetail->exp_percentage_to_next_level($comment->commentor->id) }}">
@@ -164,7 +187,7 @@
                     <div class="col-md-8 col-7">
                       @if(Auth::check())
                       @if($comment->likes->contains('user_id',Auth::user()->id))
-                      <button type="button" class="unlike-cm-btn" data-comment-id="{{ $comment->id }}">
+                      <button type="button" class="unlike-cm-btn" data-comment-id="{{ $comment->id }}" id="lk-cm-{{ $comment->id }}">
                         Đã Thích
                       </button>
                       @else

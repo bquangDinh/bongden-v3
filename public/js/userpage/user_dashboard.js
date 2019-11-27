@@ -1,12 +1,3 @@
-$(".tooltip-o").each(function(index){
-  let message = $(this).data('tooltip-message');
-  console.log(message);
-
-  tippy(this,{
-    content: message
-  });
-});
-
 var ctx = document.getElementById('articleBySubjectPieChar').getContext('2d');
 var ar_sj_p_chr = new Chart(ctx,{
   type: 'doughnut',

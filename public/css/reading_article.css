@@ -3,8 +3,19 @@ body.night .article-cover .article-cover__lowerside{
 }
 
 body.night .article-title,
-body.night .article-content{
+body.night .article-content,
+body.night .article-content *,
+body.night .name{
   color: #e4e9f0;
+}
+
+body.night .artilce-tags{
+  color: #e4e9f0;
+}
+
+body.night .artilce-tags a span{
+  background: #e4e9f0;
+  color: #141414;
 }
 
 body.night .cm-outer-container{
@@ -123,6 +134,51 @@ background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+
 
 .article-content *:not(h2){
   font-size: 18px;
+}
+
+.artilce-tags{
+  font-family: Comfortaa-Regular;
+}
+
+.avatar{
+  position: relative;
+  display: inline-block;
+}
+
+.avatar img{
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.avatar .user-level{
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 2;
+  font-family: Comfortaa-Bold;
+  font-size: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #404040;
+  color: white;
+  opacity: 0;
+  transition: all .4s;
+  cursor: pointer;
+}
+
+.avatar .user-level:hover{
+  opacity: 0.8;
+}
+
+.name{
+  font-family: Comfortaa-Regular;
+  font-size: 1.2em;
 }
 
 .navbar-desktop a,.nav-right-item{

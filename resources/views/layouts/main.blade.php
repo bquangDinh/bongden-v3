@@ -73,11 +73,14 @@
             <a href="/about_us">CHÚNG MÌNH</a>
           </li>
           <li>
-            <a href="/forum">THẢO LUẬN</a>
+            <a href="/forum" data-rm-type="update" class="remark">THẢO LUẬN</a>
           </li>
           @if(Auth::check())
           <li>
             <a href="/user">TRANG CÁ NHÂN</a>
+          </li>
+          <li>
+            <a href="/bongden_logout">ĐĂNG XUẤT</a>
           </li>
           @else
           <li>

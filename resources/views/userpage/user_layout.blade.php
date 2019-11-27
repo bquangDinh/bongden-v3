@@ -29,7 +29,7 @@
   <meta name="msapplication-square150x150logo" content="{{ URL::asset('sources/images/protected/icon/mstile-150x150.png') }}" />
   <meta name="msapplication-wide310x150logo" content="{{ URL::asset('sources/images/protected/icon/mstile-310x150.png') }}" />
   <meta name="msapplication-square310x310logo" content="{{ URL::asset('sources/images/protected/icon/mstile-310x310.png') }}" />
-  
+
   <title>
     @yield('title')
   </title>
@@ -110,7 +110,6 @@
             @if(Auth::user()->hasPermission('write_discussion'))
             <a class="collapse-item" href="{{ route('show_creating_discussion_page') }}">Tạo thảo luận</a>
             @endif
-            <a class="collapse-item" href="utilities-animation.html">Thảo luận của tôi</a>
           </div>
         </div>
       </li>
@@ -151,7 +150,6 @@
         <div id="collapsePages1" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Nội dung:</h6>
-            <a class="collapse-item" href="{{ route('show_user_staticstic_page') }}">Thống kê</a>
             <a class="collapse-item" href="{{ route('show_article_approving_page') }}">Phê duyệt bài viết</a>
           </div>
         </div>
@@ -270,58 +268,36 @@
             </li>
 
             <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1 d-none">
+            <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
+                <span class="badge badge-danger badge-counter" id="notification-count" data-current-count="{{ count(Auth::user()->unreadNotifications) }}">
+                  {{ count(Auth::user()->unreadNotifications) }}
+                </span>
               </a>
               <!-- Dropdown - Messages -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
-                  Message Center
+                  Thông báo
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                <div id="notification-list">
+                  @foreach(Auth::user()->unreadNotifications as $key => $notification)
+                  @if($key < 4)
+                  <a class="dropdown-item d-flex align-items-center animated lightSpeedIn" href="{{ $notification->url }}">
+                    <div class="dropdown-list-image mr-3">
+                      <img class="rounded-circle" src="{{ $notification->actor->avatarURL }}" alt="user avatar">
+                    </div>
+                    <div class="font-weight-bold">
+                      <div class="text-truncate">{{ $notification->message }}</div>
+                      <div class="small text-gray-500">{{ $notification->actor->name }}</div>
+                    </div>
+                  </a>
+                  @endif
+                  @endforeach
+                </div>
+
+                <a class="dropdown-item text-center small text-gray-500" href="{{ route('show_user_notification_page') }}">Đọc tất cả</a>
               </div>
             </li>
 
@@ -358,7 +334,16 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+          @if(Auth::check())
+          @if(!Auth::user()->verified_email)
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Thông báo !</strong> Email của bạn vẫn chưa được xác thực, nhấn vào <a href="{{ route('show_verify_email_page') }}">đây</a> để xác thực
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @endif
+          @endif
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">
             @yield('content-title')
@@ -416,6 +401,7 @@
   <script src="{{ URL::asset('js/vendor/popper.min.js') }}" charset="utf-8"></script>
   <script src="{{ URL::asset('js/vendor/bootstrap.min.js') }}" charset="utf-8"></script>
   <script src="{{ URL::asset('js/vendor/sweetalert2.min.js') }}" charset="utf-8"></script>
+  <script src="https://js.pusher.com/3.1/pusher.min.js" charset="utf-8"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="{{ URL::asset('js/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
@@ -423,7 +409,7 @@
   <!-- Custom scripts for all pages-->
   <script src="{{ URL::asset('js/sb-admin-2.min.js') }}"></script>
   <script src="https://unpkg.com/tippy.js@5"></script>
-
+  <script src="{{ URL::asset('js/layouts/userpage.js') }}" charset="utf-8"></script>
   @yield('js')
 </body>
 

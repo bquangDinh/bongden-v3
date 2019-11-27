@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
               'birthYear' => date('Y'),
               'gender' => $faker->randomElement($array = array('male','famale')),
               'avatarURL' => 'https://www.pcgamesn.com/wp-content/uploads/2019/04/Astroneer-My-base-900x506.jpg',
-              'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+              'password' => 'password', // password
               'remember_token' => Str::random(10),
           ]);
 

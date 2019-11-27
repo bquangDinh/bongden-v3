@@ -20,11 +20,19 @@ class UserPageController extends Controller
       $latest = Article::whereHas('getState',function(Builder $query){
         $query->where('state','uploaded');
       })->latest()->first();
-      $recents = Article::whereHas('getState',function(Builder $query){
-        $query->where('state','uploaded');
-      })->where('id','<>',$latest->id)->latest()->take(3)->get();
-      $recents_discussion = Discussion::latest()->take(4)->get();
 
+      $recents = null;
+
+      if($latest){
+        $recents = Article::whereHas('getState',function(Builder $query){
+          $query->where('state','uploaded');
+        })->where('id','<>',$latest->id)->latest()->take(3)->get();
+      }
+
+      $recents_discussion = Discussion::latest()->take(4)->get();
+      \Debugbar::info($latest);
+      \Debugbar::info($recents);
+      \Debugbar::info($recents_discussion);
       return view('homepage')->with('latest',$latest)->with('recents',$recents)->with('discussions',$recents_discussion);
     }
 

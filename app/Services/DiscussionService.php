@@ -10,6 +10,8 @@ use App\DiscussionLike;
 use App\DiscussionVote;
 
 use App\Http\Services\UserAchievementService;
+use App\Http\Services\NotificationService;
+use App\Http\Services\UserService;
 
 class DiscussionService{
 
@@ -43,6 +45,10 @@ class DiscussionService{
     return $discussion;
   }
 
+  public static function get_discussion_by_id($discussion_id){
+    return Discussion::find($discussion_id);
+  }
+
   public static function get_discussion_categories($select2Format){
     if($select2Format){
       $categories = DiscussionCategory::all();
@@ -70,6 +76,11 @@ class DiscussionService{
 
   public static function add_comment_with_request($user_id,$request){
     $comment = DiscussionService::add_comment($user_id,$request->discussion_id,$request->comment_content);
+
+    if($user_id != $comment->discussion->author->id){
+      NotificationService::send_notification_discussion_commented($comment->commentor,$comment->discussion,$comment);
+    }
+
     return $comment;
   }
 
@@ -89,6 +100,17 @@ class DiscussionService{
 
   public static function add_reply_with_request($user_id,$request){
     $reply = DiscussionService::add_reply($user_id,$request->discussion_id,$request->comment_content,$request->parent_id);
+
+    if($user_id != $reply->parent->user_id && $user_id != \Auth::user()->id){
+      if($reply->parent->parent == null){
+        //reply a comment
+        NotificationService::send_notification_comment_replied_discussion($reply->commentor,$reply->discussion,$reply);
+      }else{
+        //reply a reply
+        NotificationService::send_notification_reply_replied_discussion($reply->commentor,$reply->discussion,$reply);
+      }
+    }
+
     return $reply;
   }
 
@@ -109,6 +131,12 @@ class DiscussionService{
       $new_like->user_id = $user_id;
       $new_like->comment_id = $request->comment_id;
       $new_like->save();
+
+      //send noti
+      if($user_id != $new_like->comment->user_id){
+        NotificationService::send_notification_comment_liked_discussion($new_like->user,$new_like->comment->discussion,$new_like->comment);
+      }
+
       return $new_like;
     }
 
@@ -138,6 +166,16 @@ class DiscussionService{
       $new_like->discussion_id = $discussion_id;
       $new_like->reactor_id = $user_id;
       $new_like->save();
+
+      $discussion = DiscussionService::get_discussion_by_id($discussion_id);
+
+      if($user_id != $discussion->author->id){
+        //user_id is the actor
+        //author is the notifier
+        //actor and notifier cannot be the same
+        NotificationService::send_notification_discussion_liked(UserService::get_user_by_id($user_id),$discussion);
+      }
+
       return $new_like;
     }
 
@@ -168,6 +206,13 @@ class DiscussionService{
       $new_vote->vote = "up";
       $new_vote->save();
     }
+
+    $discussion = DiscussionService::get_discussion_by_id($request->discussion_id);
+
+    if($user_id != $discussion->author->id){
+      NotificationService::send_notification_discussion_upvoted(UserService::get_user_by_id($user_id),$discussion);
+    }
+
     return 0;
   }
 
@@ -183,6 +228,13 @@ class DiscussionService{
       $new_vote->vote = "down";
       $new_vote->save();
     }
+
+    $discussion = DiscussionService::get_discussion_by_id($request->discussion_id);
+
+    if($user_id != $discussion->author->id){
+      NotificationService::send_notification_discussion_downvoted(UserService::get_user_by_id($user_id),$discussion);
+    }
+
     return 0;
   }
 }

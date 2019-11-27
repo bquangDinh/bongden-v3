@@ -80,66 +80,6 @@ Thảo luận
         </div>
       </div>
       @endforeach
-      <div class="discussion-container w-100 mt-5">
-        <div class="row">
-          <div class="col-md-2 col-12">
-            <div class="user-avatar-container w-100 h-100 d-flex align-items-center justify-content-center">
-              <div class="avatar" data-exp-percentage="0.75">
-                <img src="https://www.pcgamesn.com/wp-content/uploads/2019/04/Astroneer-My-base-900x506.jpg" alt="author avatar">
-                <div class="user-level d-flex justify-content-center align-items-center">
-                  <span>35</span>
-                </div>
-              </div>
-              <div class="name d-md-none d-block">
-                Dinh Bui Quang
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-12">
-            <div class="discussion-info-container w-100">
-              <h3 class="discussion-title mt-2">
-                <a href="">
-                  DSADSDSADSSACXDSDSDSADSDSADSSACXDSDS
-                </a>
-              </h3>
-              <p class="discussion-description mb-2">
-                In a grid layout, content must be placed within columns and only columns may be immediate children of rows.
-                In a grid layout, content must be placed within columns and only columns may be immediate children of rows.
-                In a grid layout, content must be placed within columns and only columns may be immediate children of rows.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-4 col-12">
-            <div class="discussion-reaction h-100 d-flex justify-content-center align-items-center">
-              <div class="row w-100">
-                <div class="col-3 d-flex justify-content-center align-items-center">
-                  <div class="tippy" data-tippy-message="Số bình luận">
-                    <i class="far fa-comment" style="color: #ff7675"></i> 2
-                  </div>
-                </div>
-                <div class="col-3 d-flex justify-content-center align-items-center">
-                  <div class="tippy" data-tippy-message="Số lượt thích">
-                    <i class="fas fa-heart" style="color:#FC427B"></i> 4
-                  </div>
-                </div>
-                <div class="col-3 d-flex justify-content-center align-items-center">
-                  <div class="tippy" data-tippy-message="Số phiếu tích cực">
-                    <i class="fas fa-chevron-circle-up" style="color: #2ecc71"></i> 5
-                  </div>
-                </div>
-                <div class="col-3 d-flex justify-content-center align-items-center">
-                  <div class="tippy" data-tippy-message="Số phiếu tiêu cực">
-                    <i class="fas fa-chevron-circle-down" style="color: #e74c3c"></i> 6
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="discussion-type d-flex justify-content-center align-items-center">
-          <a href="#"><i class="fas fa-circle" style="font-size: 10px"></i> Homework</a>
-        </div>
-      </div>
 
       <div class="row d-flex justify-content-center mt-5">
         <div class="col-10 d-flex justify-content-center">

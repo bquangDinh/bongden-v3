@@ -13,6 +13,7 @@ use App\ArticleCommentLike;
 use Illuminate\Database\Eloquent\Builder;
 
 use App\Http\Services\UserAchievementService;
+use App\Http\Services\NotificationService;
 
 class ArticleService{
 
@@ -387,6 +388,11 @@ class ArticleService{
 
   public static function add_comment_with_request($user_id,$request){
     $comment = ArticleService::add_comment($user_id,$request->article_id,$request->comment_content);
+
+    if($user_id != $comment->article->author->id){
+      NotificationService::send_notification_article_commented($comment->commentor,$comment->article,$comment);
+    }
+
     return $comment;
   }
 
@@ -406,6 +412,15 @@ class ArticleService{
 
   public static function add_reply_with_request($user_id,$request){
     $reply = ArticleService::add_reply($user_id,$request->article_id,$request->comment_content,$request->parent_id);
+    if($user_id != $reply->parent->user_id && $user_id != \Auth::user()->id){
+      if($reply->parent->parent == null){
+        //reply a comment
+        NotificationService::send_notification_comment_replied_article($reply->commentor,$reply->article,$reply);
+      }else{
+        //reply a reply
+        NotificationService::send_notification_reply_replied_article($reply->commentor,$reply->article,$reply);
+      }
+    }
     return $reply;
   }
 
@@ -426,6 +441,12 @@ class ArticleService{
       $new_like->user_id = $user_id;
       $new_like->comment_id = $request->comment_id;
       $new_like->save();
+
+      //send noti
+      if($user_id != $new_like->comment->user_id){
+        NotificationService::send_notification_comment_liked_article($new_like->user,$new_like->comment->article,$new_like->comment);
+      }
+
       return $new_like;
     }
 

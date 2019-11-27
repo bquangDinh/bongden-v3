@@ -1,4 +1,4 @@
-<div class="cm-outer-pack">
+<div class="cm-outer-pack" id="cm-bl-{{ $comment->id }}">
   <div class="cm-container mt-3">
     <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
       <div class="avatar" data-us-id="{{ $comment->commentor->id }}" data-exp-percentage="{{ $comment->commentor->achieveDetail->exp_percentage_to_next_level($comment->commentor->id) }}">
@@ -28,7 +28,7 @@
       <div class="col-md-8 col-7">
         @if(Auth::check())
         @if($comment->likes->contains('user_id',Auth::user()->id))
-        <button type="button" class="unlike-cm-btn" data-comment-id="{{ $comment->id }}">
+        <button type="button" class="unlike-cm-btn" data-comment-id="{{ $comment->id }}" id="lk-cm-{{ $comment->id }}">
           Đã thích
         </button>
         @else

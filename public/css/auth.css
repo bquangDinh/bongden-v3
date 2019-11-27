@@ -25,6 +25,10 @@ body.night .sign-in-up-container{
   min-height: 650px;
 }
 
+#forgot-password-anchor{
+  font-family: Comfortaa-Bold;
+}
+
 #login-cover{
   width: 80%;
   height: 80%;

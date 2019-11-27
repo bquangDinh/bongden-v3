@@ -61,6 +61,18 @@ class User extends Authenticatable
       return $this->hasMany('App\UserToRole');
     }
 
+    public function notifications(){
+      return $this->hasMany('App\UserNotification','notifier_id')->orderBy('created_at','desc');
+    }
+
+    public function unreadNotifications(){
+      return $this->hasMany('App\UserNotification','notifier_id')->where('read',false)->orderBy('created_at','desc');
+    }
+
+    public function activities(){
+      return $this->hasMany('App\UserNotification','actor_id')->orderBy('created_at','desc');;
+    }
+
     public function hasPermission($permission_in){
       foreach($this->withRoles as $wRole){
         foreach($wRole->role->permissions as $permission){

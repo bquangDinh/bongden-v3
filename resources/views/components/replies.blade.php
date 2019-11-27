@@ -1,7 +1,7 @@
 <div class="row mt-3">
   <div class="col-1"></div>
   <div class="col-11">
-    <div class="cm-container">
+    <div class="cm-container" id="rl-bl-{{ $reply->id }}">
       <div class="user-avatar-container d-flex align-items-center" style="padding-top: 20px;padding-left:20px">
         <div class="avatar" data-us-id="{{ $reply->commentor->id }}" data-exp-percentage="{{ $reply->commentor->achieveDetail->exp_percentage_to_next_level($reply->commentor->id) }}">
           <img src="{{ $reply->commentor->avatarURL }}" alt="user avatar">
@@ -30,7 +30,7 @@
         <div class="col-md-8 col-7">
           @if(Auth::check())
           @if($reply->likes->contains('user_id',Auth::user()->id))
-          <button type="button" class="unlike-cm-btn" data-comment-id="{{ $reply->id }}">
+          <button type="button" class="unlike-cm-btn" data-comment-id="{{ $reply->id }}" id="lk-rl-{{ $reply->id }}">
             Đã thích
           </button>
           @else

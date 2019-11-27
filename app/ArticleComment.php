@@ -23,4 +23,8 @@ class ArticleComment extends Model
     public function likes(){
       return $this->hasMany('App\ArticleCommentLike','comment_id');
     }
+
+    public function article(){
+      return $this->belongsTo('App\Article','article_id');
+    }
 }

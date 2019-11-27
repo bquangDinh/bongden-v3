@@ -16,7 +16,7 @@ class CreateDiscussionTable extends Migration
         Schema::create('discussion', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('content');
+            $table->longText('content');
             $table->integer('thread_user_id')->unsigned();
             $table->foreign('thread_user_id')->references('id')->on('users');
             $table->integer('thread_category_id')->unsigned();

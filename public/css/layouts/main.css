@@ -112,8 +112,9 @@ body.night #us-pr-close{
 	position: absolute;
 	top: 30px;
 	left: 25px;
-	font-family: Taurus-Mono-Outline-Bold;
+	font-family: Comfortaa-Regular;
 	font-size: 1.5em;
+	text-decoration: none;
 }
 
 .hamburger{
@@ -191,7 +192,7 @@ body.night #us-pr-close{
 .navbar-mobile a{
   opacity: 0;
   transform: translateY(-10px);
-  font-family: Roboto-Medium;
+  font-family: Comfortaa-Regular;
 }
 
 .navbar-mobile li:nth-child(1) a{

@@ -31,7 +31,7 @@ class ArticleSeeder extends Seeder
               'submit' => $faker->randomElement($array = array('save','upload','uploaded')),
               'tag' => [$faker->numberBetween($min = 1, $max = 100)]
             ]);
-            $user_id = $faker->numberBetween($min = 537, $max = 586);
+            $user_id = $faker->numberBetween($min = 1, $max = 50);
             ArticleService::create_article_with_request($user_id,$request);
         }
     }

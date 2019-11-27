@@ -19,11 +19,19 @@ Route::get('/forum','UserPageController@show_forum_page')->name('show_forum_page
 Route::any('/search','SearchingController@search_term')->name('search');
 Route::get('/articles_with_subject/{subject_id}','ArticleController@get_articles_with_subject')->name('get_articles_with_subject');
 Route::post('/user_preview','UserPageController@show_user_profile_preview');
+//Route::get('/forgot_password','UserController@show_reset_password')->name('show_forgot_password_page');
+//Route::post('/send_reset_password','UserController@send_reset_password_link')->name('send_reset_password_link');
+//Route::get('/reset_password_outer/{reset_password_token}/{encrypted_email}','UserController@reset_password_with_token');
 
 Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
   Route::get('/','UserController@show_dashboard')->name('user_dashboard');
+  Route::get('/verify_email/{verified_email_token}','UserController@verify_email');
+  Route::get('/verify_email_message','UserController@show_verify_email')->name('show_verify_email_page');
+  Route::get('/resend_verified_email','UserController@resend_verified_email')->name('resend_verified_email');
   Route::get('/user_staticstic','UserController@show_user_staticstic')->name('show_user_staticstic_page');
-
+  Route::get('/user_notification','UserController@show_user_notification')->name('show_user_notification_page');
+  Route::get('/user_preview/{user_id}','UserController@show_user_preview')->name('show_user_preview_page');
+  
   Route::prefix('profile')->group(function(){
     Route::get('/','UserController@show_user_profile')->name('show_user_profile_page');
     Route::post('/avatar_with_url','UserController@set_avatar_with_url');
@@ -53,6 +61,8 @@ Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
     Route::post('/downvote_discussion','DiscussionController@downvote_discussion_with_ajax');
 
     Route::get('/get_discussion_categories','DiscussionController@get_discussion_categories');
+
+    Route::get('/mark_as_read_notification/{notification_id}','NotificationController@mark_as_read_notification');
   });
 
   Route::prefix('bdteam')->group(function(){
@@ -86,6 +96,8 @@ Route::post('bongden_register','BongdenRegisterController@register')->name('bong
 Route::get('bongden_logout','AuthSession@destroy')->name('bongden_logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
 
 /*For debug only. Remove these routes when release*/
 Route::get('/_debugbar/assets/stylesheets', [

@@ -1,0 +1,59 @@
+.notification-card{
+  height: auto;
+  border-radius: 20px;
+  background: white;
+  border-left: 3px solid #2ecc71;
+}
+
+.notification-card.noti-read{
+  background: #2ecc71;
+}
+
+.notification-card.noti-read *{
+  color: white;
+}
+
+.notification-card .avatar-container{
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.notification-card .avatar-container .avatar{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  object-fit: cover;
+}
+
+.notification-card .avatar-container .name{
+  display: inline-block;
+  font-family: Comfortaa-Regular;
+  font-size: 16px;
+}
+
+.notification-card .mark-as-read-btn{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: #2ecc71;
+  font-family: Comfortaa-Bold;
+  border: 0;
+  color: white;
+  font-size: 14px;
+}
+
+.notification-card .go-to-link-btn{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: #e74c3c;
+  font-family: Comfortaa-Bold;
+  border: 0;
+  color: white;
+  font-size: 14px;
+}
+
+.notification-card .content{
+  font-family: Comfortaa-Regular;
+}

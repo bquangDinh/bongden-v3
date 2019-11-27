@@ -25,6 +25,10 @@ class CreateUsersTable extends Migration
           $table->json('organization')->nullable();
           $table->string('description')->nullable();
           $table->string('password');
+          $table->string('verified_email_token');
+          $table->boolean('verified_email')->default(false);
+          $table->date('verified_email_at')->nullable();
+          $table->string('password_reset_token');
           $table->rememberToken();
           $table->timestamps();
         });

@@ -22,6 +22,6 @@ class BongDenRegisterController extends Controller
     $user = UserService::create_with_request($request);
 
     Auth::login($user);
-    return redirect('/user');
+    return redirect()->route('user_dashboard');
   }
 }

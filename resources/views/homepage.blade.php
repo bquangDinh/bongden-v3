@@ -18,7 +18,9 @@ Bóng Đèn
   <div class="row d-flex justify-content-center">
     <div class="col-md-11 col-sm-11">
       <div class="article-section__inner">
-        @if(isset($latest))
+        @if($latest == null && $recents == null )
+        <img src="{{ URL::asset('sources/images/webpage/homepage/forest_hi.jpg') }}" class="w-100 h-25">
+        @elseif($latest)
         <!-- Lastest Article Section -->
         <div class="row">
           <div class="col-12">
@@ -67,6 +69,7 @@ Bóng Đèn
           </div>
         </div>
         @endif
+        @if($recents)
         <div class="row">
           @if(count($recents) > 1)
           @if(count($recents) == 2)
@@ -161,6 +164,7 @@ Bóng Đèn
             Xem toàn bộ <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>
+        @endif
       </div>
     </div>
   </div>
@@ -178,6 +182,9 @@ Bóng Đèn
     </div>
     <div class="col-md-9 col-sm-12">
       <div class="row">
+        @if(count($discussions) == 0)
+        <img src="{{ URL::asset('sources/images/webpage/homepage/graphic_consultation.png') }}" class="w-75 h-50">
+        @else
         @foreach($discussions as $discussion)
         <div class="col-md-6 col-12">
           <div class="new-discussion-container d-flex justify-content-center align-items-center">
@@ -215,6 +222,7 @@ Bóng Đèn
           </div>
         </div>
         @endforeach
+        @endif
       </div>
     </div>
   </div>

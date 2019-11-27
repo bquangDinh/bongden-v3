@@ -24,11 +24,9 @@ class DiscussionSeeder extends Seeder
             'title' => $faker->sentences($nd=1,$asText=true),
             'thread_category_id' => $faker->numberBetween($min = 1, $max = 2),
             'content' => $content,
-            'wordCount' => $wordCount,
-            'upvote' => $faker->numberBetween($min = 0, $max = 100),
-            'downvote' => $faker->numberBetween($min = 0, $max = 100)
+            'wordCount' => $wordCount
           ]);
-          $user_id = $faker->numberBetween($min = 537, $max = 586);
+          $user_id = $faker->numberBetween($min = 1, $max = 50);
           DiscussionService::create_discussion_with_request($user_id,$request);
       }
     }
