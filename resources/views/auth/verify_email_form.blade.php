@@ -369,6 +369,7 @@
                       </td>
                     </tr>
                   </table>
+                  <p>Vui lòng không trả lời email này. Đây là email được tạo tự động bởi Bóng Đèn Webiste.</p>
                 </td>
               </tr>
 
