@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
           $table->char('gender',10);
           $table->char('phoneNumber',50)->nullable();
           $table->string('avatarURL')->nullable();
-          $table->json('award')->nullable();
-          $table->json('organization')->nullable();
+          $table->('award')->nullable();
+          $table->('organization')->nullable();
           $table->string('description')->nullable();
           $table->string('password');
           $table->string('verified_email_token');

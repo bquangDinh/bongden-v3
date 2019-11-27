@@ -31,7 +31,7 @@ Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
   Route::get('/user_staticstic','UserController@show_user_staticstic')->name('show_user_staticstic_page');
   Route::get('/user_notification','UserController@show_user_notification')->name('show_user_notification_page');
   Route::get('/user_preview/{user_id}','UserController@show_user_preview')->name('show_user_preview_page');
-  
+
   Route::prefix('profile')->group(function(){
     Route::get('/','UserController@show_user_profile')->name('show_user_profile_page');
     Route::post('/avatar_with_url','UserController@set_avatar_with_url');
@@ -90,14 +90,10 @@ Route::group(['prefix' => 'user','middleware' => 'auth'],function(){
 });
 
 
-Route::get('bongden_login','BongdenLoginController@index')->name('bongden_login_show_form')->middleware('isloginbefore');
-Route::post('bongden_login','BongdenLoginController@login')->name('bongden_login');
-Route::post('bongden_register','BongdenRegisterController@register')->name('bongden_register');
+Route::get('bongden_login','BongDenLoginController@index')->name('bongden_login_show_form')->middleware('isloginbefore');
+Route::post('bongden_login','BongDenLoginController@login')->name('bongden_login');
+Route::post('bongden_register','BongDenRegisterController@register')->name('bongden_register');
 Route::get('bongden_logout','AuthSession@destroy')->name('bongden_logout');
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
 
 /*For debug only. Remove these routes when release*/
 Route::get('/_debugbar/assets/stylesheets', [
